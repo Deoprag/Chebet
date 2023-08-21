@@ -1,0 +1,146 @@
+@import "primeng/resources/themes/mdc-dark-deeppurple/theme.css";
+@import "primeicons/primeicons.css";
+@import "primeng/resources/primeng.css";
+@import "primeflex/primeflex.css";
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;900&family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700;900&family=Lato:wght@300;400;700;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-family: Inconsolata;
+}
+
+body {
+    background: linear-gradient(45deg, #080808, #131313);
+    background-color: #000;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.center {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .logo, .header .buttons {
+    width: 15%;
+}
+
+.logo img {
+    height: 75px;
+}
+
+.header {
+    /* background: linear-gradient(45deg, #000, #222); */
+    padding: 0 30px;
+    background-color: #000;
+    height: 75px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+}
+
+.links {
+    padding: 0 20%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.links a {
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: 700;
+    color: white;
+    transition: 0.1s;
+}
+
+.links a:hover {
+    color: #940808;
+}
+
+.image img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.images {
+    background-color: black;
+    padding: 120px 50px 25px 50px;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.image {
+    width: 30vw;
+    height: 350px;
+    background-color: rgb(148, 8, 8, 0.7);
+    border: 2px solid rgb(58, 0, 0);
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.15s;
+}
+
+.image:hover {
+    scale: 1.02;
+}
+
+.content {
+    padding: 25px 200px;
+}
+
+.content p {
+    font-size: 20px;
+    color: lightgray;
+}
+
+.content h1 {
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    font-size: 48px;
+    padding: 10px;
+}
+
+.button {
+    width: 120px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 12;
+    background: #940808;
+    border-radius: 7px;
+    border: 2px solid #3a0000;
+    color: white;
+    transition: 0.1s;
+}
+
+.button:hover {
+    scale: 1.02;
+    cursor: pointer;
+    background: #aa0a0a;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.buttons button:last-child {
+    background: #944e08;
+    border: 2px solid #3a1d00;
+}
+
+.buttons button:last-child:hover {
+    background: #aa5a0a;
+}

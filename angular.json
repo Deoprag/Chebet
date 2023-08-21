@@ -15,17 +15,18 @@
           "options": {
             "outputPath": "dist/teste-primeng",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/ts/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/primeng/resources/themes/md-dark-indigo/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/style/style.css"
             ],
             "scripts": []
           },
@@ -83,11 +84,10 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/style/style.css"
             ],
             "scripts": []
           }
