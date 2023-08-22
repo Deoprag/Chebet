@@ -1,4 +1,4 @@
-@import "primeng/resources/themes/mdc-dark-deeppurple/theme.css";
+@import "primeng/resources/themes/arya-purple/theme.css";
 @import "primeicons/primeicons.css";
 @import "primeng/resources/primeng.css";
 @import "primeflex/primeflex.css";
@@ -59,11 +59,13 @@ body {
     text-decoration: none;
     font-weight: 700;
     color: white;
-    transition: 0.1s;
+    padding: 5px;
+    transition: 0.2s;
 }
 
 .links a:hover {
-    color: #940808;
+    /* color: #940808; */
+    box-shadow: 0 1px white;
 }
 
 .image img {
@@ -112,35 +114,8 @@ body {
     padding: 10px;
 }
 
-.button {
-    width: 120px;
-    height: 50px;
-    font-weight: 700;
-    font-size: 12;
-    background: #940808;
-    border-radius: 7px;
-    border: 2px solid #3a0000;
-    color: white;
-    transition: 0.1s;
-}
-
-.button:hover {
-    scale: 1.02;
-    cursor: pointer;
-    background: #aa0a0a;
-}
-
 .buttons {
     display: flex;
     gap: 10px;
     justify-content: space-between;
-}
-
-.buttons button:last-child {
-    background: #944e08;
-    border: 2px solid #3a1d00;
-}
-
-.buttons button:last-child:hover {
-    background: #aa5a0a;
 }

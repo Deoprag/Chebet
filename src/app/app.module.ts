@@ -6,15 +6,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Dialog, DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
+import { ChebetHeaderComponent } from './chebet-header/chebet-header.component';
+import { LoginModalComponent } from './login-modal/login-modal.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChebetHeaderComponent,
+    LoginModalComponent,
   ],
   imports: [
     BrowserModule,
+    DialogModule,
+    DynamicDialogModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ButtonModule,
@@ -22,7 +30,7 @@ import { RippleModule } from 'primeng/ripple';
     InputTextModule,
     RippleModule
   ],
-  providers: [],
+  providers: [DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
