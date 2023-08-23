@@ -2,22 +2,22 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
-import { ChebetHeaderComponent } from './chebet-header/chebet-header.component';
-import { LoginModalComponent } from './login-modal/login-modal.component';
-import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { MainHeaderComponent } from './main-header/main-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChebetHeaderComponent,
-    LoginModalComponent,
+    MainHeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
