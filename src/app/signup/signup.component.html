@@ -5,7 +5,13 @@
     </ng-template>
     <ng-template pTemplate="content">
         <div class="content">
-            <label for="username" class="block text-900 font-medium align-left">Email ou CPF</label>
+            <label for="firstName" class="block text-900 font-medium align-left">Nome</label>
+            <label for="lastName" class="block text-900 font-medium align-left">Sobrenome</label>
+            <label for="email" class="block text-900 font-medium align-left">Email</label>
+            <span class="p-float-label">
+                <p-inputMask mask="999.999.999-99" [(ngModel)]="value" id="txtCpf"></p-inputMask>
+                <label htmlFor="txtCpf">CPF</label>
+            </span>
             <button (click)="signUp()" pButton pRipple label="Registrar" icon="pi pi-user" class="w-full p-button-raised p-button-danger"></button>
         </div>
     </ng-template>
