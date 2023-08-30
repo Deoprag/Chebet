@@ -1,0 +1,12 @@
+<p-button (click)="showModal()" label="Registrar-se" styleClass="p-button-raised p-button-danger" id="btnSignUp" icon="pi pi-user-plus"></p-button>
+<p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Registrar-se</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="content">
+            <label for="username" class="block text-900 font-medium align-left">Email ou CPF</label>
+            <button (click)="signUp()" pButton pRipple label="Registrar" icon="pi pi-user" class="w-full p-button-raised p-button-danger"></button>
+        </div>
+    </ng-template>
+</p-dialog>

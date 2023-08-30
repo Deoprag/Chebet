@@ -1,14 +1,14 @@
-<p-button (click)="showModal()" label="Entrar" styleClass="p-button-outlined p-button-danger" id="btnLogin"></p-button>
+<p-button (click)="showModal()" label="Entrar" styleClass="p-button-outlined p-button-danger" id="btnLogin" icon="pi pi-user"></p-button>
 <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
     <ng-template pTemplate="header">
-        <span class="text-xl font-bold" style="width: 227px;">Login</span>
+        <span class="text-xl font-bold" style="width: 318px;">Entrar</span>
     </ng-template>
     <ng-template pTemplate="login">
-        <div class="text-center mb-5">
+        <div class="text-center mb-5" style="width: 350px">
             <img src="../../assets/Chevette.png" alt="Image" height="100" class="mb-3">
             <div class="text-900 text-3xl font-medium mb-3">Bem-vindo de volta</div>
             <span class="text-600 font-medium line-height-3">Não tem uma conta?</span>
-            <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crie agora!</a>
+            <a class="font-medium no-underline ml-2 text-pink-500 cursor-pointer">Crie agora!</a>
         </div>
 
         <div>
@@ -19,11 +19,11 @@
             <input id="password" type="password" placeholder="Senha" pInputText class="w-full mb-3">
 
             <div class="flex align-items-center justify-content-between mb-6">
-                <div class="zzflex align-items-center">
+                <div class="flex align-items-center">
                     <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
                     <label for="rememberme1" class="text-900">Lembrar conta</label>
                 </div>
-                <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Esqueceu senha?</a>
+                <a class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer">Esqueceu senha?</a>
             </div>
             <button (click)="login()" pButton pRipple label="Entrar" icon="pi pi-user" class="w-full p-button-raised p-button-danger"></button>
         </div>
