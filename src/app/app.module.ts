@@ -7,6 +7,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
 import { RippleModule } from 'primeng/ripple';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { SignupComponent } from './signup/signup.component';
     ButtonModule,
     CheckboxModule,
     InputTextModule,
+    InputMaskModule,
     RippleModule
   ],
   providers: [DialogService],

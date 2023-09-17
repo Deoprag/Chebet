@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
   selector: 'signup',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class SignupComponent {
   visible: boolean = false;
+  value: string | undefined;
 
   showModal() {
     this.visible = true;
