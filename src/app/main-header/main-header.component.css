@@ -2,16 +2,24 @@
     height: 60px;
 }
 
+.wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    position: fixed;
+    background-color: #000;
+}
+
 .header {
     z-index: 99;
     padding: 0 30px;
-    background-color: #000;
     height: 75px;
-    width: 100vw;
+    width: 80vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
 }
 
 .header div {
@@ -29,13 +37,12 @@
     font-size: 20px;
     text-decoration: none;
     font-weight: 400;
-    color: white;
+    color: #dc8e8e;
     transition: 0.2s;
 }
 
 .links a:hover {
-    /* color: #940808; */
-    box-shadow: 0 1px white;
+    filter: brightness(1.5);
 }
 
 .buttons {

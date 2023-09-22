@@ -14,13 +14,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MainHeaderComponent } from './main-header/main-header.component';
 import { SignupComponent } from './signup/signup.component';
+import { MainFooterComponent } from './main-footer/main-footer.component';
+import { TableModule } from 'primeng/table';
+import { ChampionshipService } from './service/championshipService';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainHeaderComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    MainFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +36,10 @@ import { SignupComponent } from './signup/signup.component';
     CheckboxModule,
     InputTextModule,
     InputMaskModule,
-    RippleModule
+    RippleModule,
+    TableModule
   ],
-  providers: [DialogService],
+  providers: [DialogService, ChampionshipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

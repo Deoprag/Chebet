@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Championship } from '../domain/championship';
+import { ChampionshipService } from '../service/championshipService';
 
 @Component({
   selector: 'main-header',
@@ -7,5 +9,13 @@ import { Component } from '@angular/core';
 })
 
 export class MainHeaderComponent {
-  
+  championships!: Championship[];
+
+  constructor(private championshipService: ChampionshipService) {}
+
+  ngOnInit() {
+      this.championshipService.getChampionships().then((data) => {
+          this.championships = data;
+      });
+  }
 }

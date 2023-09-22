@@ -1,0 +1,79 @@
+.main-footer {
+    width: 100%;
+    background-color: black;
+    height: 80px;
+}
+
+.wrapper {
+    height: 80px;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.content {
+    width: 33.3%;
+    padding-top: 5px;
+}
+
+.social-media {
+    text-align: right;
+}
+
+.social-media a{
+    padding: 5px;
+}
+
+.social-media img {
+    width: 40px;
+    transition: all 0.2s;
+}
+
+.mid-section p {
+    text-align: center;
+    color: #dc8e8e;
+    font-size: 12px;
+    padding: 3px;
+}
+
+.languages-section {
+    text-align: left;
+    display: inline-block;
+}
+
+.languages-section a {
+    font-size: 14px;
+    color: #dc8e8e;
+    text-decoration: none;
+}
+
+.content a:hover {
+    transition: all 0.2s;
+    filter: brightness(1.5);
+}
+
+.social-media img:hover {
+    scale: 1.06;
+    filter: brightness(1.5);
+}
+
+.championship-table {
+    width: 100%;
+}
+
+.table-wrapper {
+    max-width: 80vw;
+    display: flex;
+}
+
+/* .space {
+    width: 60vw;
+    padding: 20px;
+}
+
+.space p {
+    font-size: 20px;
+    min-height: 400px;
+} */
