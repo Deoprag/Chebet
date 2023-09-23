@@ -1,0 +1,38 @@
+<div class="championship-table">
+    <div class="table-wrapper">
+        <!-- <p-table [value]="championships" styleClass="p-datatable-gridlines pt-5 pb-5 pr-8 pl-8">
+            <ng-template pTemplate="caption" class=""> Campeonatos </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Participantes</th>
+                    <th>Data do Evento</th>
+                    <th>Apostas</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-championship>
+                <tr>
+                    <td>{{ championship.name }}</td>
+                    <td>{{ championship.quantity }}</td>
+                    <td>{{ championship.endDate }}</td>
+                    <td>{{ championship.betQuantity }}</td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+        <table class="championships">
+            <caption>CAMPEONATOS</caption>
+            <tr>
+                <th>Nome</th>
+                <th>Participantes</th>
+                <th>Data</th>
+                <th>Apostas</th>
+            </tr>
+            <tr *ngFor="let championship of championships">
+                <td> {{championship.name}} </td>
+                <td> {{championship.quantity}} </td>
+                <td> {{championship.endDate}} </td>
+                <td> {{championship.betQuantity}} </td>
+            </tr>
+        </table>
+    </div>
+</div>

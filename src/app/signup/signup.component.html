@@ -1,4 +1,4 @@
-<p-button (click)="showModal()" label="Registrar-se" styleClass="p-button-raised p-button-danger" id="btnSignUp" icon="pi pi-user-plus"></p-button>
+<p-button (click)="showModal()" label="Registrar-se" styleClass="p-button-raised p-button-danger" id="btnSignUp" icon="pi pi-user-plus" [style]="{'width':'150px'}"></p-button>
 <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
     <ng-template pTemplate="header">
         <span class="text-xl font-bold">Registrar-se</span>

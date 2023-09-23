@@ -6,25 +6,27 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { MainHeaderComponent } from './main-header/main-header.component';
-import { SignupComponent } from './signup/signup.component';
+import { MainContentComponent } from './main-content/main-content.component';
 import { MainFooterComponent } from './main-footer/main-footer.component';
-import { TableModule } from 'primeng/table';
 import { ChampionshipService } from './service/championshipService';
+import { SignupComponent } from './signup/signup.component';
+import { MainHeaderComponent } from './main-header/main-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainHeaderComponent,
     LoginComponent,
     SignupComponent,
-    MainFooterComponent
+    MainFooterComponent,
+    MainContentComponent,
+    MainHeaderComponent
   ],
   imports: [
     BrowserModule,
