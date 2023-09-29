@@ -3,11 +3,13 @@
     background-color: black;
     height: 120px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .wrapper {
     height: 80px;
-    width: 80vw;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,6 +67,6 @@
 }
 
 .table-wrapper {
-    max-width: 80vw;
+    max-width: 80%;
     display: flex;
 }

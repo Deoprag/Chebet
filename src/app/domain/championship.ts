@@ -1,6 +1,6 @@
 export interface Championship {
     name?:string;
     quantity?:number;
-    endDate?:Date;
+    endDate?:String;
     betQuantity?:number;
 }

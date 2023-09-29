@@ -17,4 +17,8 @@ export class MainContentComponent {
           this.championships = data;
       });
   }
+
+  loadBet() {
+    
+  }
 }

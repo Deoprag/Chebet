@@ -1,10 +1,24 @@
-.championship-table {
-    padding: 50px;
+main {
+    display: flex;
+    width: 98%;
+    margin: 30px 10px;
+    justify-content: space-between;
 }
 
-.championships {
-    width: 90vw;
+.championship-table {
+    width: 65%;
+    margin: 0 auto;
+}
+
+aside {
+    background-color: #dc8e8e;
+    min-width: 250px;
+    margin: 0 20px;
+}
+
+.championships {    
     text-align: left;
+    width: 100%;
     border-collapse: collapse;
     border: 2px solid black;
 }
@@ -32,10 +46,44 @@
     font-weight: 400;
 }
 
+.championships tr td:last-of-type {
+    text-align: center;
+}
+
 .championships tr:nth-child(even) {
     background-color: #111;
 }
 
 .championships tr:nth-child(odd) {
     background-color: #222;
+}
+
+@media (max-width: 1200px) {
+    .right-aside {
+        display: none;
+    }
+
+    main {
+        overflow: scroll;
+    }
+    
+    .championship-table {
+        width: 100%;
+        margin: 0 1% 0 3%;
+    }
+}
+
+@media (max-width: 800px) {
+    .left-aside {
+        display: none;
+    }
+
+    main {
+        margin: 20px auto;
+        overflow: scroll;
+    }
+
+    .championship-table {
+        width: 90%;
+    }
 }

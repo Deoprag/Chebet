@@ -1,38 +1,28 @@
-<div class="championship-table">
-    <div class="table-wrapper">
-        <!-- <p-table [value]="championships" styleClass="p-datatable-gridlines pt-5 pb-5 pr-8 pl-8">
-            <ng-template pTemplate="caption" class=""> Campeonatos </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Nome</th>
-                    <th>Participantes</th>
-                    <th>Data do Evento</th>
-                    <th>Apostas</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-championship>
-                <tr>
-                    <td>{{ championship.name }}</td>
-                    <td>{{ championship.quantity }}</td>
-                    <td>{{ championship.endDate }}</td>
-                    <td>{{ championship.betQuantity }}</td>
-                </tr>
-            </ng-template>
-        </p-table> -->
+<main>
+    <!-- <aside class="left-aside">
+        <div class="">
+        </div>
+    </aside> -->
+    <section class="championship-table" id="bets">
         <table class="championships">
-            <caption>CAMPEONATOS</caption>
+            <caption>CAMPEONATOS DISPONÍVEIS</caption>
             <tr>
                 <th>Nome</th>
-                <th>Participantes</th>
+                <th>Pessoas</th>
                 <th>Data</th>
-                <th>Apostas</th>
+                <th colspan="2">Apostas</th>
             </tr>
             <tr *ngFor="let championship of championships">
                 <td> {{championship.name}} </td>
                 <td> {{championship.quantity}} </td>
                 <td> {{championship.endDate}} </td>
                 <td> {{championship.betQuantity}} </td>
+                <td> <p-button label="Apostar" styleClass="p-button-danger" (click)="loadBet()" icon="pi pi-arrow-up-right"></p-button> </td>
             </tr>
         </table>
-    </div>
-</div>
+    </section>
+    <!-- <aside class="right-aside">
+        <div class="">
+        </div>
+    </aside> -->
+</main>

@@ -1,10 +1,10 @@
 <p-button (click)="showModal()" label="Entrar" styleClass="p-button-outlined p-button-danger" id="btnLogin" icon="pi pi-user" [style]="{'width':'150px'}"></p-button>
 <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
     <ng-template pTemplate="header">
-        <span class="text-xl font-bold">Entrar</span>
+        <span class="text-xl font-bold"  [style]="{'width':'310px'}">Entrar</span>
     </ng-template>
     <ng-template pTemplate="login">
-        <div class="text-center mb-5" style="width: 350px">
+        <div class="text-center mb-5" [style]="{'width':'350px'}">
             <img src="../../assets/Chevette.png" alt="Image" height="100" class="mb-3">
             <div class="text-900 text-3xl font-medium mb-3">Bem-vindo de volta</div>
             <span class="text-600 font-medium line-height-3">Não tem uma conta?</span>

@@ -1,9 +1,13 @@
+.main-header {
+    width: 100%;
+}
+
 .logo img {
     height: 60px;
 }
 
 .wrapper {
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,14 +20,14 @@
 .header {
     padding: 0 30px;
     height: 75px;
-    width: 90vw;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .header div {
-    width: 30vw;
+    width: 30%;
 }
 
 .links {
@@ -61,28 +65,27 @@
 }
 
 .image-slider {
+    width: 100%;
+    height: 18%;
     background-color: black;
 }
 
 .images {
     padding: 100px 50px 25px 50px;
+    justify-content: center;
     display: flex;
-    width: 90vw;
+    width: 100%;
     gap: 20px;
 }
 
 .image {
     display: flex;
-    max-width: 25vw;
+    max-width: 25%;
     background-color: #dc8e8e67;
     border: 4px solid #dc8e8e;
     border-radius: 5px;
     text-align: center;
     transition: 0.25s;
-}
-
-.image:first-of-type, .image:last-of-type {
-    /* filter: brightness(0.1); */
 }
 
 .image .active:hover {
@@ -91,7 +94,7 @@
 
 @media (max-width: 1200px) { 
     .wrapper {
-        width: 100vw;
+        width: 100%;
         height: 100px;
     }
 
@@ -112,6 +115,8 @@
         flex-direction: column;
         gap: 5px;
     }
+
+    
 }
 
 @media (max-width: 768px) {
