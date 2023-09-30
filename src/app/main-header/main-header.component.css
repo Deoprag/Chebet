@@ -1,5 +1,15 @@
+.dropdown {
+    transition: 0.3s;
+}
+
 .main-header {
     width: 100%;
+    background-color: black;
+    display: block;
+}
+
+#logo {
+    display: none;
 }
 
 .logo img {
@@ -7,20 +17,19 @@
 }
 
 .wrapper {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 75px;
-    position: fixed;
-    background-color: #000;
-    z-index: 99;
 }
 
 .header {
+    background-color: #000;
+    z-index: 99;
+    position: fixed;
     padding: 0 30px;
     height: 75px;
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,6 +44,18 @@
     gap: 5%;
     align-items: center;
     justify-content: center;
+}
+
+.links ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.links ul li {
+    padding: 10px;
+    list-style-type: none;
 }
 
 .links a {
@@ -71,7 +92,7 @@
 }
 
 .images {
-    padding: 100px 50px 25px 50px;
+    padding: 50px 0;
     justify-content: center;
     display: flex;
     width: 100%;
@@ -88,22 +109,26 @@
     transition: 0.25s;
 }
 
+.menu {
+    background-color: black;
+    border: none;
+    display: none;
+}
+
 .image .active:hover {
     scale: 1.015;
 }
 
 @media (max-width: 1200px) { 
-    .wrapper {
-        width: 100%;
-        height: 100px;
-    }
 
-    .images {
-        padding-top: 125px;
+    .main-header {
+        display: block;
     }
 
     .header {
-        padding: 0;
+        padding: 10px;
+        width: 100%;
+        height: 100px;
     }
 
     .logo {
@@ -119,6 +144,72 @@
     
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .dropdown {
+        background-color: black;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 10px;
+        width: 100%;
+        z-index: 99;
+    }
     
+    .menu {
+        display: block;
+        margin: 10px;
+    }
+
+    .main-header {
+        display: none;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .header div {
+        width: 100%;
+    }
+
+    .wrapper {
+        background-color: black;
+        display: block;
+    }
+
+    .header {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 0 auto;
+        height: auto;
+    }
+
+    .header .buttons {
+        padding: 20px 0;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .links {
+        padding-top: 30px;
+        display: block;
+    }
+
+    .links ul {
+        display: block;
+        margin: 0 auto;
+    }
+    
+    .links ul li {
+        padding: 10px;
+        margin: 0 auto;
+    }
+
+    .image-slider {
+        display: none;
+    }
 }

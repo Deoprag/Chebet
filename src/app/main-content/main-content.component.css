@@ -69,11 +69,12 @@ aside {
     
     .championship-table {
         width: 100%;
+        margin: 0 auto;
         margin: 0 1% 0 3%;
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .left-aside {
         display: none;
     }
@@ -85,5 +86,6 @@ aside {
 
     .championship-table {
         width: 90%;
+        margin: 0 auto;
     }
 }
