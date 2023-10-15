@@ -37,6 +37,7 @@ function showBar() {
   const mainHeader = document.getElementById("main-header");
   const dropdown = document.getElementById("dropdown");
   const logo = document.getElementById("logo");
+
   if (mainHeader != undefined && dropdown != undefined && logo != undefined) {
 
     if (mainHeader.style.display == "none") {
@@ -47,19 +48,20 @@ function showBar() {
       logo.style.display = "none";
       
     } else {
-      
-      dropdown.style.height = "75px";
-      dropdown.style.flexDirection = "row";
-      logo.style.display = "block";
-
       if (window.innerWidth <= 768) {
+        dropdown.style.height = "75px";
+        dropdown.style.flexDirection = "row";
+        logo.style.display = "block";
         
-        mainHeader.style.display = "none";
-        
-      } else {
-        
-        mainHeader.style.display = "block";
-
+        if (window.innerWidth <= 768) {
+          
+          mainHeader.style.display = "none";
+          
+        } else {
+          
+          mainHeader.style.display = "block";
+          
+        }
       }
 
     }

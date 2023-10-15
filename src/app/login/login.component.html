@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <p-button (click)="showModal()" label="Entrar" styleClass="p-button-outlined p-button-danger" id="btnLogin" icon="pi pi-user" [style]="{'width':'150px'}"></p-button>
 <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
     <ng-template pTemplate="header">
@@ -12,11 +13,11 @@
         </div>
 
         <div>
-            <label for="username" class="block text-900 font-medium mb-2 text-left">Email ou CPF</label>
-            <input id="username" type="text" placeholder="Endereço de email ou CPF" pInputText class="w-full mb-3 text-left">
+            <label for="username" class="block text-900 font-medium mb-2 text-left">CPF</label>
+            <p-inputMask #username mask="999.999.999-99" placeholder="123.456.789-10" [style]="{'width':'100%', 'text-align':'left', 'margin-bottom':'10px'}"></p-inputMask>
             
             <label for="password" class="block text-900 font-medium mb-2 text-left">Senha</label>
-            <input id="password" type="password" placeholder="Senha" pInputText class="w-full mb-3 text-left">
+            <input #password id="password" type="password" placeholder="Senha" pInputText class="w-full mb-3 text-left">
 
             <div class="flex align-items-center justify-content-between mb-6">
                 <div class="flex align-items-center">
@@ -25,7 +26,7 @@
                 </div>
                 <a class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer">Esqueceu senha?</a>
             </div>
-            <button (click)="login()" pButton pRipple label="Entrar" icon="pi pi-user" class="w-full p-button-raised p-button-danger"></button>
+            <button (click)="login(username.value, password.value)" pButton pRipple label="Entrar" icon="pi pi-user" class="w-full p-button-raised p-button-danger"></button>
         </div>
     </ng-template>
 </p-dialog>

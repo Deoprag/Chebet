@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Championship } from '../domain/championship';
-import { ChampionshipService } from '../service/championshipService';
+import { ChampionshipService } from '../service/ChampionshipService';
 
 @Component({
   selector: 'main-content',
