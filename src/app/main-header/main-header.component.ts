@@ -1,14 +1,25 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../service/AuthService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'main-header',
   templateUrl: './main-header.component.html',
-  styleUrls: ['./main-header.component.css']
+  styleUrls: ['./main-header.component.css'],
+  providers: [AuthService]
 })
 export class MainHeaderComponent {
-
+  isUserLoggedIn = !this.authService.isTokenExpired();
+  
+  constructor(private authService: AuthService, private router: Router) { }
+  
   ngOnInit() {
     window.addEventListener('resize', fixDisplay)
+    if(this.isUserLoggedIn) {
+      this.router.navigate(['/edit-user'])
+    } else {
+      this.router.navigate(['/main-content'])
+    }
     showBar();
   }
 
@@ -20,14 +31,17 @@ export class MainHeaderComponent {
 function fixDisplay() {
   const mainHeader = document.getElementById("main-header");
   const logo = document.getElementById("logo");
+  const dropdown = document.getElementById("dropdown");
   
-  if (mainHeader != undefined && logo != undefined) {
+  if (mainHeader != undefined && logo != undefined && dropdown != undefined) {
     if (window.innerWidth >= 768) {
       mainHeader.style.display = "block";
       logo.style.display = "none"
+      dropdown.style.height = "75px";
     } else {
       mainHeader.style.display = "none";
       logo.style.display = "block"
+      showBar();
     }
   }
   

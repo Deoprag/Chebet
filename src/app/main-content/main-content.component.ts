@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Championship } from '../domain/championship';
+import { Championship } from '../domain/Championship';
 import { ChampionshipService } from '../service/ChampionshipService';
 
 @Component({

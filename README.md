@@ -10,6 +10,7 @@ No terminal, execute os seguintes comandos:
 - npm install -g @angular/cli
 - npm install primeng
 - npm install primeflex --save
+- npm install @auth0/angular-jwt
 
 ## Execução
 Após instalar as dependências, execute o seguinte comando na pasta do projeto:

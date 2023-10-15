@@ -17,8 +17,9 @@
                 </ul>
             </div>
             <div class="buttons">
-                <login></login>
-                <signup></signup>
+                <login *ngIf="!isUserLoggedIn"></login>
+                <signup *ngIf="!isUserLoggedIn"></signup>
+                <!-- <profile></profile> -->
             </div>
         </div>
     </div>

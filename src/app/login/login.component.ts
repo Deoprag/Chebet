@@ -1,52 +1,56 @@
 import { Component } from '@angular/core';
-import { UserService } from '../service/userService';
 import { MessageService } from 'primeng/api';
+import { ApiService } from '../service/ApiService';
+import { UserService } from '../service/UserService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, ApiService]
 })
 export class LoginComponent {
 
   visible: boolean = false;
 
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  constructor(private userService: UserService, private messageService: MessageService, private router: Router) { }
   
   showModal() {
     this.visible = true;
   }
 
-  showError() {
-    this.messageService.add({ severity: 'error', summary: 'Erro!', detail: 'Usuário ou senha incorretos!' });
+  showError(message: string) {
+    this.messageService.add({ severity: 'error', summary: 'Erro!', detail: message });
   }
 
-  showSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: 'Logado com sucesso!' });
+  showSuccess(message: string) {
+    this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: message });
   }
   
-  showWarn() {
-    this.messageService.add({ severity: 'warn', summary: 'Ops...', detail: 'Preencha todos os campos!' });
+  showWarn(message: string) {
+    this.messageService.add({ severity: 'warn', summary: 'Ops...', detail: message });
   }
 
   login(username: any, password: any) {
-    console.log(username, password)
     if (isBlank(username) || isBlank(password)) {
-      this.showWarn();
+      this.showWarn("Preencha todos os campos!");
     } else {
       this.userService.login(username, password)
       .subscribe(
         (response: any) => {
-          const token = response.token;
-          console.log(token);
-          
+          const token = response.token;            
           localStorage.setItem('token', token);
-          this.showSuccess();
+          this.visible = false;
+          this.showSuccess("Logado com sucesso!");
+          this.router.navigate(['/edit-user'])
         },
         (error) => {
-          console.log("erro!");
-          this.showError();
+          if(error.status === 0) {
+            this.showError("Erro desconhecido, tente novamente mais tarde.");
+          } else {
+            this.showError("Usuário ou senha incorretos!");
+          }
         }
         );
     }
