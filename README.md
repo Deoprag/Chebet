@@ -13,7 +13,7 @@ No terminal, execute os seguintes comandos:
 - npm install @auth0/angular-jwt
 
 ## Execução
-Após instalar as dependências, execute o seguinte comando na pasta do projeto:
+Após instalar as dependências, execute o seguinte comando na pasta root do projeto:
 - ng serve
 
 Depois de iniciar o projeto, acesse o link:
