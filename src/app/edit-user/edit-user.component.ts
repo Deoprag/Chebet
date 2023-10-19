@@ -18,9 +18,11 @@ export class EditUserComponent {
   userForm!: NgForm;
   genders: Gender[] | undefined;
   user: User | undefined;
+  visible: boolean = false;
 
   constructor(genderService: GenderService, private userService: UserService, private renderer: Renderer2, private messageService: MessageService, private router: Router) {
     this.genders = genderService.getGenders();
+
   const token = localStorage.getItem('token');
   var sub = '';
 
@@ -41,6 +43,10 @@ export class EditUserComponent {
     } else {
       this.user = undefined;
     }
+  }
+
+  changeModal() {
+    this.visible = !this.visible;
   }
 
   showError(message: string) {
@@ -103,7 +109,7 @@ export class EditUserComponent {
           this.showSuccess("Apagado com sucesso!");
           localStorage.setItem('token', '');
           this.router.navigate(['/main-content'])
-        },
+        },  
         (error: any) => {
           this.showError("Erro desconhecido ao apagar. Tente novamente mais tarde!");
         }

@@ -44,8 +44,20 @@
         
         <div class="flex justify-content-center gap-3 pt-3">
             <button pButton pRipple label="Atualizar Dados" (click)="update()" icon="pi pi-user-edit" class="p-button-raised p-button-danger bg-blue-300 w-4"></button>
-            <button pButton pRipple label="Apagar Conta" (click)="deleteAccount()" icon="pi pi-user-minus" class="p-button-raised bg-red-600 w-4"></button>
-        </div>
+            <!-- <button pButton pRipple label="Apagar Conta" (click)="deleteAccount()" icon="pi pi-user-minus" class="p-button-raised bg-red-600 w-4"></button> -->
+            <button pButton pRipple (click)="changeModal()" label="Apagar Conta" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount" icon="pi pi-user-minus"></button>
+            <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
+                <ng-template pTemplate="header">
+                    <span class="text-xl font-bold"  [style]="{'width':'310px'}">Deseja mesmo apagar a conta?</span>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <div class="flex justify-content-around">
+                        <button pButton pRipple (click)="deleteAccount()" label="Sim" class="p-button-raised bg-blue-300 w-4" id="btnDeleteAccount"></button>
+                        <button pButton pRipple (click)="changeModal()" label="Não" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount"></button>
+                    </div>
+                </ng-template>
+            </p-dialog>
+            </div>
     </form>
     </div>
 </section>

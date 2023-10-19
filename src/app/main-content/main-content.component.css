@@ -1,24 +1,11 @@
 main {
     display: flex;
     width: 98%;
-    margin: 30px 10px;
     justify-content: space-between;
-}
-
-.championship-table {
-    width: 65%;
-    margin: 0 auto;
-}
-
-aside {
-    background-color: #dc8e8e;
-    min-width: 250px;
-    margin: 0 20px;
 }
 
 .championships {    
     text-align: left;
-    width: 100%;
     border-collapse: collapse;
     border: 2px solid black;
 }

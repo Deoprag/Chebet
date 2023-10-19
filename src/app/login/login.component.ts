@@ -49,7 +49,8 @@ export class LoginComponent {
           if(error.status === 0) {
             this.showError("Erro desconhecido, tente novamente mais tarde.");
           } else {
-            this.showError("Usuário ou senha incorretos!");
+            // this.showError("Usuário ou senha incorretos!");
+            this.showError(error.error.message);
           }
         }
         );
