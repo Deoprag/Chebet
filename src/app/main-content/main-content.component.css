@@ -49,10 +49,6 @@ main {
     .right-aside {
         display: none;
     }
-
-    main {
-        overflow: scroll;
-    }
     
     .championship-table {
         width: 100%;
@@ -68,7 +64,6 @@ main {
 
     main {
         margin: 20px auto;
-        overflow: scroll;
     }
 
     .championship-table {

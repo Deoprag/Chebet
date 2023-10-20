@@ -37,11 +37,10 @@ function fixDisplay() {
     if (window.innerWidth >= 768) {
       mainHeader.style.display = "block";
       logo.style.display = "none"
-      dropdown.style.height = "75px";
+      dropdown.style.height = "0";
     } else {
       mainHeader.style.display = "none";
       logo.style.display = "block"
-      showBar();
     }
   }
   
@@ -63,13 +62,13 @@ function showBar() {
       
     } else {
       if (window.innerWidth <= 768) {
-        dropdown.style.height = "75px";
         dropdown.style.flexDirection = "row";
         logo.style.display = "block";
         
         if (window.innerWidth <= 768) {
           
           mainHeader.style.display = "none";
+          dropdown.style.height = "75px";
           
         } else {
           

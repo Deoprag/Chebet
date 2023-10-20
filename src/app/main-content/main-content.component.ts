@@ -18,7 +18,7 @@ export class MainContentComponent {
       });
   }
 
-  loadBet() {
+  showChampionship() {
     
   }
 }
