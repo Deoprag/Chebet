@@ -1,10 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Gender } from '../domain/Gender';
-import { UserService } from '../service/UserService';
-import { last } from 'rxjs';
 import { GenderService } from '../service/GenderService';
+import { UserService } from '../service/UserService';
 
 @Component({
   selector: 'signup',
@@ -57,13 +56,12 @@ export class SignupComponent {
           (response: any) => {
             this.showSuccess("Cadastrado com sucesso!");
             this.visible = false;
-            clearFields();
           },
           (error) => {
             if(error.status === 0) {
               this.showError("Erro desconhecido, tente novamente mais tarde.");
             } else {
-              // Tratar erros de inserção do usuário
+              this.showError(error.error.message);
             }
           }
           );
@@ -72,10 +70,6 @@ export class SignupComponent {
       this.showWarn("Preencha todos os campos!");
     }
   }
-}
-
-function clearFields() {
-    
 }
 
 function checkFields(firstName: string, lastName: string, cpf: string, email: string, 
