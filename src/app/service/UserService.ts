@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Observable, map } from 'rxjs';
 import { User } from '../domain/User';
 import { GenderService } from './GenderService';
+import { DateService } from './DateService';
 
 @Injectable({
   providedIn: 'root'
@@ -60,11 +61,12 @@ export class UserService {
       map((response: any) => {
         const genderService = new GenderService();
         const user = new User();
+        const dateService = new DateService();
         user.id = response.id;
         user.firstName = response.firstName;
         user.lastName = response.lastName;
         user.email = response.email;
-        user.birthDate = this.formatDate(response.birthDate);
+        user.birthDate = dateService.formatDate(response.birthDate);
         user.cpf = response.cpf;
         var gender = genderService.getGender(response.gender[0]);
         if (gender) {
@@ -76,13 +78,5 @@ export class UserService {
         return user;
       })
     );
-  }
-
-  formatDate(dataArray: any) {
-    const ano = dataArray[0];
-    const mes = dataArray[1] - 1;
-    const dia = dataArray[2];
-
-    return new Date(ano, mes, dia);
   }
 }

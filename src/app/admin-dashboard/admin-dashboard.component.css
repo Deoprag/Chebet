@@ -1,0 +1,14 @@
+*{
+    background-color: black;
+}
+
+.admin-side-nav {
+    margin-top: 57px;
+    transition: 0.3s;
+}
+
+@media (max-width: 1200px) {
+    .admin-side-nav {
+        width: 75px !important;
+    }
+}

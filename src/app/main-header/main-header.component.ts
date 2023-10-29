@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 })
 export class MainHeaderComponent {
   isUserLoggedIn = !this.authService.isTokenExpired();
+  isAdmin = this.authService.isAdmin();
   
   constructor(private authService: AuthService, private router: Router) { }
   
   ngOnInit() {
     window.addEventListener('resize', fixDisplay)
-    if(this.isUserLoggedIn) {
+    if(this.isUserLoggedIn && this.isAdmin) {
+      this.router.navigate(['/admin-dashboard'])
+    } else if (this.isUserLoggedIn && !this.isAdmin) {
       this.router.navigate(['/edit-user'])
     } else {
       this.router.navigate(['/main-content'])

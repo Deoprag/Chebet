@@ -23,8 +23,8 @@ export class EditUserComponent {
   constructor(genderService: GenderService, private userService: UserService, private renderer: Renderer2, private messageService: MessageService, private router: Router) {
     this.genders = genderService.getGenders();
 
-  const token = localStorage.getItem('token');
-  var sub = '';
+    const token = localStorage.getItem('token');
+    var sub = '';
 
     if (token) {
       const tokenData = JSON.parse(atob(token.split('.')[1]));

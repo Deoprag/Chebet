@@ -1,0 +1,19 @@
+.content {
+    background-color: #090909;
+}
+
+.nav-bar {
+    display: none;
+}
+
+.nav-bar button {
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    border: none;
+}
+
+/* @media (max-width: 1200px) {
+    .nav-bar {
+        display: block;
+    }
+} */

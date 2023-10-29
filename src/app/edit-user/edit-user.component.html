@@ -1,8 +1,9 @@
 <p-toast></p-toast>
+<main-header>   </main-header>
 <section class="w-full flex justify-content-center align-items-center text-center">
     <div class="w-4 pt-5 pb-5">
         <form>
-        <div class="flex justify-content-evenly gap-3">
+            <div class="flex justify-content-evenly gap-3">
                 <span *ngIf="user">
                     <label for="firstName" class="block text-900 font-medium mb-2 text-left">Nome</label>
                     <input #firstName id="firstName" type="text" placeholder="Nome" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" [disabled]="true">
@@ -61,3 +62,4 @@
     </form>
     </div>
 </section>
+<main-footer></main-footer>

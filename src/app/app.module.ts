@@ -26,6 +26,14 @@ import { ChampionshipService } from './service/ChampionshipService';
 import { SignupComponent } from './signup/signup.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { FormsModule } from '@angular/forms';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminSideNavComponent } from './admin-side-nav/admin-side-nav.component';
+import { AdminContentComponent } from './admin-content/admin-content.component';
+import { ChampionshipDashboardComponent } from './championship-dashboard/championship-dashboard.component';
+import { CarDashboardComponent } from './car-dashboard/car-dashboard.component';
+import { PilotDashboardComponent } from './pilot-dashboard/pilot-dashboard.component';
+import { TeamDashboardComponent } from './team-dashboard/team-dashboard.component';
 
 export function jwtOptionsFactory() {
   return {
@@ -45,6 +53,14 @@ export function jwtOptionsFactory() {
     MainContentComponent,
     MainHeaderComponent,
     EditUserComponent,
+    AdminDashboardComponent,
+    AdminHeaderComponent,
+    AdminSideNavComponent,
+    AdminContentComponent,
+    ChampionshipDashboardComponent,
+    CarDashboardComponent,
+    PilotDashboardComponent,
+    TeamDashboardComponent,
   ],
   imports: [
     FormsModule,
