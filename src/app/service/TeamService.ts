@@ -12,22 +12,28 @@ export class TeamService {
   findAll(): Observable<Team[]> {
     const url = `http://localhost:8080/api/team/`;
   
-    return this.http.get<Team[]>(url).pipe(
-    //   map((response: any) => {
-    //     if (Array.isArray(response)) {
-    //         // Mapeie cada objeto da resposta para o modelo Team
-    //         return response.map((teamData: any) => {
-    //           return {
-    //             id: teamData.id,
-    //             name: teamData.name,
-    //           };
-    //         });
-    //       } else {
-    //         // Caso contrário, retorne um array vazio ou lide com o erro conforme necessário
-    //         return [];
-    //       }
-    //   }
-    //   )
-    );
+    return this.http.get<Team[]>(url).pipe();
+  }
+
+  update(team: Team) {
+    const url = `http://localhost:8080/api/team/`;
+    var id = team.id;
+    var name = team.name;
+    return this.http.put(url, {
+      id,
+      name
+    });
+  }
+  
+  delete(team: Team) {
+    const url = `http://localhost:8080/api/team/${team.id}`;
+    return this.http.delete(url);
+  }
+
+  register(name: any) {
+    const url = `http://localhost:8080/api/team/`;
+    return this.http.post(url, {
+      name
+    });
   }
 }

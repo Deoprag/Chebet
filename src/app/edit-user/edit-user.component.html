@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<main-header>   </main-header>
+<main-header></main-header>
 <section class="w-full flex justify-content-center align-items-center text-center">
     <div class="w-4 pt-5 pb-5">
         <form>
@@ -45,7 +45,6 @@
         
         <div class="flex justify-content-center gap-3 pt-3">
             <button pButton pRipple label="Atualizar Dados" (click)="update()" icon="pi pi-user-edit" class="p-button-raised p-button-danger bg-blue-300 w-4"></button>
-            <!-- <button pButton pRipple label="Apagar Conta" (click)="deleteAccount()" icon="pi pi-user-minus" class="p-button-raised bg-red-600 w-4"></button> -->
             <button pButton pRipple (click)="changeModal()" label="Apagar Conta" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount" icon="pi pi-user-minus"></button>
             <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
                 <ng-template pTemplate="header">
