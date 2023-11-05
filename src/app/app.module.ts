@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -16,24 +17,28 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { CarDashboardComponent } from './admin-page/admin-content/car-dashboard/car-dashboard.component';
+import { ChampionshipDashboardComponent } from './admin-page/admin-content/championship-dashboard/championship-dashboard.component';
+import { PilotDashboardComponent } from './admin-page/admin-content/pilot-dashboard/pilot-dashboard.component';
+import { PreparerDashboardComponent } from './admin-page/admin-content/preparer-dashboard/preparer-dashboard.component';
+import { RaceDashboardComponent } from './admin-page/admin-content/race-dashboard/race-dashboard.component';
+import { StatisticsDashboardComponent } from './admin-page/admin-content/statistics-dashboard/statistics-dashboard.component';
+import { TeamDashboardComponent } from './admin-page/admin-content/team-dashboard/team-dashboard.component';
+import { UserDashboardComponent } from './admin-page/admin-content/user-dashboard/user-dashboard.component';
+import { AdminDashboardComponent } from './admin-page/admin-dashboard/admin-dashboard.component';
+import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.component';
+import { AdminSideNavComponent } from './admin-page/admin-side-nav/admin-side-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { MainContentComponent } from './main-content/main-content.component';
-import { MainFooterComponent } from './main-footer/main-footer.component';
-import { MainHeaderComponent } from './main-header/main-header.component';
-import { ChampionshipService } from './service/ChampionshipService';
-import { SignupComponent } from './signup/signup.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-import { FormsModule } from '@angular/forms';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { AdminSideNavComponent } from './admin-side-nav/admin-side-nav.component';
-import { AdminContentComponent } from './admin-content/admin-content.component';
-import { ChampionshipDashboardComponent } from './championship-dashboard/championship-dashboard.component';
-import { CarDashboardComponent } from './car-dashboard/car-dashboard.component';
-import { PilotDashboardComponent } from './pilot-dashboard/pilot-dashboard.component';
-import { TeamDashboardComponent } from './team-dashboard/team-dashboard.component';
+import { ChampionshipService } from './chebet/service/ChampionshipService';
+import { LoginComponent } from './main-page/login/login.component';
+import { MainContentComponent } from './main-page/main-content/main-content.component';
+import { MainFooterComponent } from './main-page/main-footer/main-footer.component';
+import { MainHeaderComponent } from './main-page/main-header/main-header.component';
+import { SignupComponent } from './main-page/signup/signup.component';
+import { EditUserComponent } from './user-page/edit-user/edit-user.component';
+import { RouterModule } from '@angular/router';
+import { SharedService } from './admin-page/shared.service';
 
 export function jwtOptionsFactory() {
   return {
@@ -56,11 +61,14 @@ export function jwtOptionsFactory() {
     AdminDashboardComponent,
     AdminHeaderComponent,
     AdminSideNavComponent,
-    AdminContentComponent,
     ChampionshipDashboardComponent,
     CarDashboardComponent,
     PilotDashboardComponent,
     TeamDashboardComponent,
+    PreparerDashboardComponent,
+    RaceDashboardComponent,
+    UserDashboardComponent,
+    StatisticsDashboardComponent,
   ],
   imports: [
     FormsModule,
@@ -85,8 +93,9 @@ export function jwtOptionsFactory() {
         useFactory: jwtOptionsFactory,
       },
     }),
+    RouterModule,
   ],
-  providers: [DialogService, ChampionshipService, MessageService],
+  providers: [DialogService, ChampionshipService, MessageService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,21 @@
+<div class="container flex flex-row">
+    <div class="admin-side-nav h-auto w-2">
+        <admin-side-nav></admin-side-nav>
+    </div>
+    <div class="main-container w-full">
+        <main class="admin-content">
+            <admin-header></admin-header>
+            <div class="bg-gray-900 w-full h-full">
+                <statistics-dashboard *ngIf="selectedDashboard === 'statistics-dashboard'"></statistics-dashboard>
+                <championship-dashboard *ngIf="selectedDashboard === 'championship-dashboard'"></championship-dashboard>
+                <pilot-dashboard *ngIf="selectedDashboard === 'pilot-dashboard'"></pilot-dashboard>
+                <team-dashboard *ngIf="selectedDashboard === 'team-dashboard'"></team-dashboard>
+                <car-dashboard *ngIf="selectedDashboard === 'car-dashboard'"></car-dashboard>
+                <preparer-dashboard *ngIf="selectedDashboard === 'preparer-dashboard'"></preparer-dashboard>
+                <race-dashboard *ngIf="selectedDashboard === 'race-dashboard'"></race-dashboard>
+                <user-dashboard *ngIf="selectedDashboard === 'user-dashboard'"></user-dashboard>
+                <!-- <router-outlet name="adminOutlet"></router-outlet> -->
+            </div>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.bg-black {
+    background-color: #000;
+}
+
+@media (max-width: 1200px) {
+    /* .bg-black {
+        display: none !important;
+    } */
+    .nav-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-item span {
+        display: none;
+    }
+}
+
+.selected-dashboard {
+	background-color: var(--gray-900);
+}

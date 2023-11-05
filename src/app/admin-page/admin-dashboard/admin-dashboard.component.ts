@@ -1,0 +1,44 @@
+import { Component } from '@angular/core';
+import { AuthService } from '../../chebet/service/AuthService';
+import { Router } from '@angular/router';
+import { interval } from 'rxjs';
+import { SharedService } from '../shared.service';
+
+@Component({
+  selector: 'admin-dashboard',
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.css'],
+  providers: [AuthService]
+})
+export class AdminDashboardComponent {
+  isUserLoggedIn = !this.authService.isTokenExpired();
+  isAdmin = this.authService.isAdmin();
+  selectedDashboard: string = 'statistics-dashboard';
+
+  constructor(private authService: AuthService, private router: Router, private sharedService: SharedService) {}
+  
+  ngOnInit() {
+    if(this.isUserLoggedIn && this.isAdmin) {
+      this.router.navigate(['/admin-dashboard'])
+    } else if (this.isUserLoggedIn && !this.isAdmin) {
+      this.router.navigate(['/edit-user'])
+    } else {
+      this.router.navigate(['/main-content'])
+    }
+    interval(5000).subscribe(() => {
+      this.checkAuthentication();
+    });
+    this.sharedService.selectedDashboard$.subscribe((dashboard) => {
+      this.selectedDashboard = dashboard;
+    });
+  }
+
+  checkAuthentication() {
+    this.isUserLoggedIn = !this.authService.isTokenExpired();
+    this.isAdmin = this.authService.isAdmin();
+
+    if (!this.isUserLoggedIn) {
+      this.router.navigate(['/main-content'])
+    }
+  }
+}
