@@ -1,8 +1,155 @@
-<div class="w-full h-full flex justify-content-center">
-    <div class="">
-        <span>
-            <label for="name" class="block text-900 font-medium mb-2 text-left">Nome</label>
-            <!-- <input #name id="name" type="text" placeholder="Nome" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="pilot.name" [ngModelOptions]="{standalone: true}" [disabled]="true"> -->
-        </span>
-    </div>
-</div>
+<p-toast></p-toast>
+<section class="championship-table w-full h-full p-5 flex justify-content-center min-h-screen">
+    <p-table
+    #tbPilots
+    [value]="pilots"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [scrollable]="true"
+    [tableStyle]="{'min-width': '768px'}"
+    scrollWidth="1024px"
+    styleClass="p-datatable-gridlines"
+    class="w-12"
+    dataKey="id"
+    [globalFilterFields]="['name', 'id', 'nickname', 'birthDate', 'team.name']"
+    editMode="row">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center">
+                <div class="w-4">
+                    <p-button type="button" icon="pi pi-plus" (onClick)="changeRegisterModal()" styleClass="p-button-text"></p-button>
+                </div>
+                <div class="w-4">
+                    <p class="text-center text-3xl">Pilotos</p>
+                </div>
+                <div class="w-4 flex flex-end">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="w-full" (input)="tbPilots.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquisar"/>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="nickname">Apelido <p-sortIcon field="nickname"></p-sortIcon></th>
+                <th pSortableColumn="birthDate">Data de Nascimento <p-sortIcon field="birthDate"></p-sortIcon></th>
+                <th pSortableColumn="team">Equipe <p-sortIcon field="team"></p-sortIcon></th>
+                <th pSortableColumn="active" style="width:8%">Ativo <p-sortIcon field="active"></p-sortIcon></th>
+                <th style="width:8%">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pilot let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="pilot">
+                <td>
+                    {{pilot.id}}
+                </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="pilot.name" required>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{pilot.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="pilot.nickname" required>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{pilot.nickname}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-calendar [(ngModel)]="intermediateDate" dateFormat="dd/mm/yy" (onSelect)="updateDate($event)"></p-calendar>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ pilot.birthDate | date:'dd/MM/yyyy' }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown (onChange)="updateSelectedTeam($event)" class="text-left" [options]="teams" optionLabel="name" appendTo="body" placeholder="Equipes" [ngModel]="pilot.team"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{pilot.team.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor class="flex justify-content-center">
+                            <ng-template pTemplate="input">
+                                <p-checkbox [(ngModel)]="pilot.active" [binary]="true"></p-checkbox>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ pilot.active == true ? 'Sim' : 'Não' }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(pilot)" class="p-button-rounded p-button-text "></button>
+                        <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-times" (click)="onRowDelete(pilot, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(pilot, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(pilot, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog [(visible)]="deleteModal" [modal]="true" [resizable]="false" [draggable]="false">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold" [style]="{'width':'310px'}">Deseja mesmo apagar o piloto?</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <div class="flex justify-content-around">
+                <button pButton pRipple (click)="deletePilot()" label="Sim" class="p-button-raised bg-blue-300 w-4" id="btnDeleteAccount"></button>
+                <button pButton pRipple (click)="changeDeleteModal()" label="Não" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount"></button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</section>
+<p-dialog [(visible)]="registerPilotModal" [modal]="true" [resizable]="false" [draggable]="false">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold" >Cadastro de Pilotos</span>
+    </ng-template>
+    <ng-template pTemplate="registerPilot">
+        <div [style]="{'width':'400px'}" class="flex flex-column justify-content-center">
+            <div class="flex justify-content-evenly gap-3">
+                <span>
+                    <label for="name" class="block text-900 font-medium mb-2 text-left">Nome</label>
+                    <input #name id="name" type="text" placeholder="Nome" pInputText class="w-full mb-3">
+                </span>
+                <span>
+                    <label for="nickname" class="block text-900 font-medium mb-2 text-left">Apelido</label>
+                    <input #nickname id="nickname" type="text" placeholder="Apelido" pInputText class="w-full mb-3">
+                </span>
+            </div>
+            <div class="flex justify-content-evenly gap-3">
+                <span>
+                    <label for="birthDate" class="block text-900 font-medium mb-2 text-left">Data de Nascimento</label>
+                    <p-calendar #birthDate (onSelect)="updateDate($event)" placeholder="01/01/2000" appendTo="body" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-calendar>
+                </span>
+                <span>
+                    <label for="nickname" class="block text-900 font-medium mb-2 text-left">Equipe</label>
+                    <p-dropdown #team class="text-left" [options]="teams" optionLabel="name" appendTo="body" placeholder="Equipes" [style]="{'width':'190px'}"></p-dropdown>
+                </span>
+            </div>
+            <div class="flex align-items-start" [style]="{'margin':'20px 0'}">
+                <p-checkbox #active (click)="changeActive()" [binary]="true" styleClass="mr-2"></p-checkbox>
+                <p class="font-medium no-underline ml-2 text-right" href="">Ativo</p>
+            </div>
+            <button (click)="registerPilot(name.value, nickname.value, team.value)" pButton pRipple label="Registrar" icon="pi pi-plus" class="w-full p-button-raised bg-blue-300"></button>
+        </div>
+    </ng-template>
+</p-dialog>

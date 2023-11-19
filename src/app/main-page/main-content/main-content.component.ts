@@ -13,9 +13,7 @@ export class MainContentComponent {
   constructor(private championshipService: ChampionshipService) {}
 
   ngOnInit() {
-      this.championshipService.getChampionships().then((data) => {
-          this.championships = data;
-      });
+      
   }
 
   showChampionship() {

@@ -43,7 +43,6 @@ export class LoginComponent {
           localStorage.setItem('token', token);
           this.visible = false;
           this.showSuccess("Logado com sucesso!");
-          const tokenData = JSON.parse(atob(token.split('.')[1]));
           if(!this.authService.isAdmin()) {
             this.router.navigate(['/edit-user'])
           } else if (this.authService.isAdmin()) {

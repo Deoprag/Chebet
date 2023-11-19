@@ -1,8 +1,190 @@
-<div class="w-full h-full flex justify-content-center">
-    <div class="">
-        <span>
-            <!-- <label for="name" class="block text-900 font-medium mb-2 text-left">Sobrenome</label>
-            <input #lastName id="lastName" type="text" placeholder="Sobrenome" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}" [disabled]="true"> -->
-        </span>
-    </div>
-</div>
+<p-toast></p-toast>
+<section class="championship-table w-full h-full p-5 flex justify-content-center min-h-screen max-w-100">
+    <p-table
+    #tbCars
+    [value]="cars"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [scrollable]="true"
+    [tableStyle]="{'min-width': '768px'}"
+    scrollWidth="1024px"
+    styleClass="p-datatable-gridlines"
+    class="w-12 max-w"
+    dataKey="id"
+    [globalFilterFields]="['id', 'nickname', 'year', 'model', 'pilot.name', 'preparer.name', 'pilot.team.name', 'color']"
+    editMode="row">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center">
+                <div class="w-4">
+                    <p-button type="button" icon="pi pi-plus" (onClick)="changeRegisterModal()" styleClass="p-button-text"></p-button>
+                </div>
+                <div class="w-4">
+                    <p class="text-center text-3xl">Carros</p>
+                </div>
+                <div class="w-4 flex flex-end">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="w-full" (input)="tbCars.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquisar"/>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id" style="width:8%">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="nickname" style="width:13.6%">Apelido <p-sortIcon field="nickname"></p-sortIcon></th>
+                <th pSortableColumn="year" style="width:8%">Ano <p-sortIcon field="year"></p-sortIcon></th>
+                <th pSortableColumn="model" style="width:13.6%">Modelo <p-sortIcon field="model"></p-sortIcon></th>
+                <th pSortableColumn="color" style="width:8%">Cor <p-sortIcon field="color"></p-sortIcon></th>
+                <th pSortableColumn="team" style="width:13.6%">Equipe <p-sortIcon field="team"></p-sortIcon></th>
+                <th pSortableColumn="pilot" style="width:13.6%">Piloto <p-sortIcon field="pilot"></p-sortIcon></th>
+                <th pSortableColumn="preparer" style="width:13.6%">Preparador <p-sortIcon field="preparer"></p-sortIcon></th>
+                <th style="width:8%">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="car">
+                <td>
+                    {{car.id}}
+                </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="car.nickname" required style="width: 150px">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{car.nickname}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="number" [(ngModel)]="car.year" required style="width: 90px">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{car.year}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="car.model" required style="width:100%">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{car.model}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown #color class="text-left" [(ngModel)]="car.color" (onChange)="updateSelectedColor($event)" [options]="colors" appendTo="body" placeholder="Cores" [style]="{'width':'110px'}" [required]="true">
+                                </p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{capitalizeFirstLetter(car.color)}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown #team class="text-left" [(ngModel)]="selectedTeam" (onChange)="updateSelectedTeam($event)" [options]="teams" optionLabel="name" appendTo="body" placeholder="Equipes" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{car.pilot.team.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown #pilot class="text-left" [(ngModel)]="car.pilot" (onChange)="updateSelectedPilot($event)" [options]="pilots" optionLabel="name" appendTo="body" placeholder="Pilotos" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{car.pilot.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown #preparer class="text-left" [(ngModel)]="car.preparer" (onChange)="updateSelectedPreparer($event)" [options]="preparers" optionLabel="name" appendTo="body" placeholder="Preparadores" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{car.preparer.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(car)" class="p-button-rounded p-button-text "></button>
+                        <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-times" (click)="onRowDelete(car, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(car, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(car, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog [(visible)]="deleteModal" [modal]="true" [resizable]="false" [draggable]="false">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold" [style]="{'width':'310px'}">Deseja mesmo apagar o carro?</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <div class="flex justify-content-around">
+                <button pButton pRipple (click)="deleteCar()" label="Sim" class="p-button-raised bg-blue-300 w-4" id="btnDeleteAccount"></button>
+                <button pButton pRipple (click)="changeDeleteModal()" label="Não" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount"></button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</section>
+<p-dialog [(visible)]="registerCarModal" [modal]="true" [resizable]="false" [draggable]="false">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold" >Cadastro de Carros</span>
+    </ng-template>
+    <ng-template pTemplate="registerCar">
+        <div [style]="{'width':'400px'}" class="flex flex-column justify-content-center">
+            <div class="flex justify-content-evenly gap-3">
+                <span>
+                    <label for="name" class="block text-900 font-medium mb-2 text-left">Apelido</label>
+                    <input #nickname id="nickname" type="text" placeholder="Carro X" pInputText class="w-full mb-3">
+                </span>
+                <span>
+                    <label for="nickname" class="block text-900 font-medium mb-2 text-left">Ano</label>
+                    <input #year id="year" type="number" placeholder="2000" pInputText class="w-full mb-3">
+                </span>
+            </div>
+            <div class="flex justify-content-evenly gap-3">
+                <span>
+                    <label for="birthDate" class="block text-900 font-medium mb-2 text-left">Modelo</label>
+                    <input #model id="model" type="text" placeholder="Gol GT" pInputText class="w-full mb-3">
+                </span>
+                <span>
+                    <label for="color" class="block text-900 font-medium mb-2 text-left">Cor</label>
+                    <p-dropdown #color class="text-left" (onChange)="updateSelectedColor($event)" [options]="colors" appendTo="body" placeholder="Cores" [style]="{'width':'190px'}"></p-dropdown>
+                </span>
+            </div>
+            <div class="flex justify-content-evenly gap-3 mb-3">
+                <span>
+                    <label for="pilot" class="block text-900 font-medium mb-2 text-left">Equipe</label>
+                    <p-dropdown #team class="text-left" (onChange)="updateSelectedTeam($event)" [options]="teams" optionLabel="name" appendTo="body" placeholder="Equipes" [style]="{'width':'190px'}"></p-dropdown>
+                </span>
+                <span>
+                    <label for="pilot" class="block text-900 font-medium mb-2 text-left">Piloto</label>
+                    <p-dropdown #pilot class="text-left" (onChange)="updateSelectedPilot($event)" [options]="pilots" optionLabel="name" appendTo="body" placeholder="Pilotos" [style]="{'width':'190px'}"></p-dropdown>
+                </span>
+            </div>
+            <div class="flex justify-content-evenly gap-3 mb-5">    
+                <span>
+                    <label for="preparer" class="block text-900 font-medium mb-2 text-left">Preparador</label>
+                    <p-dropdown #preparer class="text-left" (onChange)="updateSelectedPreparer($event)" [options]="preparers" optionLabel="name" appendTo="body" placeholder="Preparadores" [style]="{'width':'190px'}"></p-dropdown>
+                </span>
+            </div>
+            <button pButton pRipple label="Registrar" (click)="registerCar(nickname.value, year.value, model.value)" icon="pi pi-plus" class="w-full p-button-raised bg-blue-300"></button>
+        </div>
+    </ng-template>
+</p-dialog>

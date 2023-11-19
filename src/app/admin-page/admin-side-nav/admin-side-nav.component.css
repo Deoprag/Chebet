@@ -3,9 +3,6 @@
 }
 
 @media (max-width: 1200px) {
-    /* .bg-black {
-        display: none !important;
-    } */
     .nav-item {
         display: flex;
         justify-content: center;
