@@ -78,6 +78,7 @@ export class CarDashboardComponent implements OnInit{
     });
     this.preparerService.findAllByTeam(this.selectedTeam).subscribe((preparers) => {
       this.preparers = preparers;
+      this.preparers.unshift({id: 0, name: "Não possui", nickname: "", team: new Team})
     });
   }
 
@@ -138,6 +139,7 @@ export class CarDashboardComponent implements OnInit{
     });
     this.preparerService.findAllByTeam(this.selectedTeam).subscribe((preparers) => {
       this.preparers = preparers;
+      this.preparers.unshift({id: 0, name: "Não possui", nickname: "", team: new Team})
     });
   }
 
@@ -162,15 +164,15 @@ export class CarDashboardComponent implements OnInit{
   }
 
   validateEditFields(car: Car) {
-    if (!car.nickname || !car.year || !car.model || !car.color || !car.pilot || !car.preparer) {
+    if (!car.nickname || !car.year || !car.model || !car.color || !car.pilot) {
       return false;
     } else {
       return true;
     }
   }
 
-  validateRegisterFields(nickname: any, year: any, model: any, color: any, pilot: any, preparer: any) {
-    if (!nickname || !year || !model || !color || !pilot || !preparer) {
+  validateRegisterFields(nickname: any, year: any, model: any, color: any, pilot: any) {
+    if (!nickname || !year || !model || !color || !pilot) {
       return false;
     } else {
       return true;
@@ -193,7 +195,7 @@ export class CarDashboardComponent implements OnInit{
 
   registerCar(nickname: any, year: any, model: any) {
     var car: Car = new Car;
-    if (this.validateRegisterFields(nickname, year, model, this.selectedColor, this.selectedPilot, this.selectedPreparer)) {
+    if (this.validateRegisterFields(nickname, year, model, this.selectedColor, this.selectedPilot)) {
       car.nickname = nickname;
       car.year = year;
       car.model = model;

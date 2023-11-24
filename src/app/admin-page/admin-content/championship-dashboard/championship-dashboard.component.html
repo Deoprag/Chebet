@@ -1,3 +1,142 @@
-<div>
-    
-</div>
+<p-toast></p-toast>
+<section class="championship-table w-full h-full p-5 flex justify-content-center min-h-screen">
+    <p-table
+    #tbChampionships
+    [value]="championships"
+    [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"
+    [scrollable]="true"
+    [tableStyle]="{'min-width': '768px'}"
+    scrollWidth="1024px"
+    styleClass="p-datatable-gridlines"
+    class="w-12"
+    dataKey="id"
+    [globalFilterFields]="['name', 'id']"
+    editMode="row">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center">
+                <div class="w-4">
+                    <p-button type="button" icon="pi pi-plus" (onClick)="changeRegisterModal()" styleClass="p-button-text"></p-button>
+                </div>
+                <div class="w-4">
+                    <p class="text-center text-3xl">Campeonatos</p>
+                </div>
+                <div class="w-4 flex flex-end">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="w-full" (input)="tbChampionships.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquisar"/>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id" style="width:10%">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:25%">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:25%">Data de Inicio <p-sortIcon field="nickname"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:25%">Data  Final <p-sortIcon field="team"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:25%">Pilotos <p-sortIcon field="team"></p-sortIcon></th>
+                <th style="width:10%">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-championship let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="championship">
+                <td>
+                    {{championship.id}}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="championship.name" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{championship.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="championship.date" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{championship.date | date:'dd/MM/yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="championship.endDate" required>
+                        </ng-template>
+                        <ng-template pTemplate="output" *ngIf="championship.endDate">
+                            {{championship.endDate | date:'dd/MM/yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-multiSelect [options]="pilots" optionLabel="name" [(ngModel)]="championship.pilots" [style]="{'width': '200px'}"></p-multiSelect>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <p-scroller [items]="championship.pilots" [itemSize]="50" scrollHeight="100px" styleClass="border-1 surface-border" optionLabel="name" [style]="{'width': '100%', 'height': '100px'}">
+                                <ng-template pTemplate="pilot" let-pilot let-options="options">
+                                    <div class="flex align-items-center p-2" style="height: 50px;">{{ pilot.name }}</div>
+                                </ng-template>
+                            </p-scroller>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(championship)" class="p-button-rounded p-button-text "></button>
+                        <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-times" (click)="onRowDelete(championship, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(championship, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(championship, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog [(visible)]="deleteModal" [modal]="true" [resizable]="false" [draggable]="false">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold" [style]="{'width':'310px'}">Deseja mesmo apagar o preparador?</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <div class="flex justify-content-around">
+                <button pButton pRipple (click)="deleteChampionship()" label="Sim" class="p-button-raised bg-blue-300 w-4" id="btnDeleteAccount"></button>
+                <button pButton pRipple (click)="changeDeleteModal()" label="Não" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount"></button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</section>
+<p-dialog [(visible)]="registerChampionshipModal" [modal]="true" [resizable]="false" [draggable]="false">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold" >Cadastro de Campeonato</span>
+    </ng-template>
+    <ng-template pTemplate="registerChampionship">
+        <div [style]="{'width':'250px'}" class="flex flex-column justify-content-center">
+            <div class="flex justify-content-center gap-3">
+                <span>
+                    <label for="name" class="block text-900 font-medium mb-2 text-left">Nome</label>
+                    <input #name id="name" type="text" placeholder="Nome" pInputText class="w-full mb-3">
+                </span>
+            </div>
+            <div class="flex justify-content-center gap-3">
+                <span>
+                    <label for="nickname" class="block text-900 font-medium mb-2 text-left">Apelido</label>
+                    <input #nickname id="nickname" type="text" placeholder="Apelido" pInputText class="w-full mb-3">
+                </span>    
+            </div>
+            <div class="flex justify-content-center gap-3 mb-3">
+                <span>
+                    <label for="team" class="block text-900 font-medium mb-2 text-left">Equipe</label>
+                    
+                </span>
+            </div>
+            <button (click)="registerChampionship(name.value, nickname.value)" pButton pRipple label="Registrar" icon="pi pi-plus" class="w-full p-button-raised bg-blue-300"></button>
+        </div>
+    </ng-template>
+</p-dialog>

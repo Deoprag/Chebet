@@ -47,6 +47,7 @@ export class PreparerDashboardComponent {
 
   changeRegisterModal() {
     this.registerPreparerModal = !this.registerPreparerModal;
+    this.selectedTeam = new Team;
   }
 
   showError(message: string) {
@@ -67,7 +68,8 @@ export class PreparerDashboardComponent {
 
   onRowEditSave(preparer: Preparer, index: number) {
     this.preparers[index] = this.clonedPreparers[preparer.id as unknown as string];
-    if (preparer.name.length < 1 || preparer.nickname.length < 1) {
+    if (preparer.name && preparer.nickname && this.selectedTeam) {
+      preparer.team = this.selectedTeam;
       this.preparerService.update(preparer)
       .subscribe(
         (response: any) => {

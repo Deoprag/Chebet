@@ -29,7 +29,12 @@ export class CarService {
     var model = car.model;
     var color = car.color;
     var pilot = car.pilot.id;
-    var preparer = car.pilot.id;
+    var preparer;
+    if (car.preparer) {
+      preparer = car.preparer.id;
+    } else {
+      preparer = 0;
+    }
     return this.http.put(url, {
       id,
       nickname,
@@ -53,7 +58,12 @@ export class CarService {
     var model = car.model;
     var color = car.color;
     var pilot = car.pilot.id;
-    var preparer = car.preparer.id;
+    var preparer;
+    if (car.preparer) {
+      preparer = car.preparer.id;
+    } else {
+      preparer = 0;
+    }
 
     return this.http.post(url, {
         nickname,

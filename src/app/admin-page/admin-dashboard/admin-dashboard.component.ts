@@ -18,13 +18,6 @@ export class AdminDashboardComponent {
   constructor(private authService: AuthService, private router: Router, private sharedService: SharedService) {}
   
   ngOnInit() {
-    if(this.isUserLoggedIn && this.isAdmin) {
-      this.router.navigate(['/admin-dashboard'])
-    } else if (this.isUserLoggedIn && !this.isAdmin) {
-      this.router.navigate(['/edit-user'])
-    } else {
-      this.router.navigate(['/main-content'])
-    }
     interval(5000).subscribe(() => {
       this.checkAuthentication();
     });
@@ -37,7 +30,11 @@ export class AdminDashboardComponent {
     this.isUserLoggedIn = !this.authService.isTokenExpired();
     this.isAdmin = this.authService.isAdmin();
 
-    if (!this.isUserLoggedIn) {
+    if(this.isUserLoggedIn && this.isAdmin) {
+      this.router.navigate(['/admin-dashboard'])
+    } else if (this.isUserLoggedIn && !this.isAdmin) {
+      this.router.navigate(['/edit-user'])
+    } else {
       this.router.navigate(['/main-content'])
     }
   }

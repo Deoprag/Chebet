@@ -1,8 +1,11 @@
+import { Pilot } from "./Pilot";
+
 export class Championship {
-    name?:string;
-    quantity?:number;
-    endDate?:String;
-    betQuantity?:number;
+    id!: number;
+    name!:string;
+    date!:Date;
+    endDate!:Date;
+    pilots!: Pilot[];
 
     constructor() {
         

@@ -115,7 +115,7 @@
                                 <p-dropdown #preparer class="text-left" [(ngModel)]="car.preparer" (onChange)="updateSelectedPreparer($event)" [options]="preparers" optionLabel="name" appendTo="body" placeholder="Preparadores" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{car.preparer.name}}
+                                {{car.preparer ? car.preparer.name : 'Não possui'}}
                             </ng-template>
                         </p-cellEditor>
                     </td>

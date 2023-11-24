@@ -8,7 +8,7 @@ export class Car {
     model: string;
     color: string;
     pilot: Pilot;
-    preparer: Preparer;
+    preparer: Preparer | null | undefined;
 
     constructor() {
         this.id = 0;

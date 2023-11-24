@@ -24,9 +24,14 @@ export class PreparerService {
     const url = `http://localhost:8080/api/preparer/`;
     var id = preparer.id;
     var name = preparer.name;
+    var nickname = preparer.nickname;
+    var team = preparer.team.id;
+
     return this.http.put(url, {
       id,
-      name
+      name,
+      nickname,
+      team
     });
   }
   
@@ -39,7 +44,7 @@ export class PreparerService {
     var name = preparer.name;
     var nickname = preparer.nickname;
     var team = preparer.team.id;
-    
+
     const url = `http://localhost:8080/api/preparer/`;
     return this.http.post(url, {
       name,

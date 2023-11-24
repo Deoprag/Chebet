@@ -39,6 +39,7 @@ import { SignupComponent } from './main-page/signup/signup.component';
 import { EditUserComponent } from './user-page/edit-user/edit-user.component';
 import { RouterModule } from '@angular/router';
 import { SharedService } from './admin-page/shared.service';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 export function jwtOptionsFactory() {
   return {
@@ -87,6 +88,7 @@ export function jwtOptionsFactory() {
     CalendarModule,
     HttpClientModule,
     DropdownModule,
+    MultiSelectModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
