@@ -68,8 +68,10 @@ export class PreparerDashboardComponent {
 
   onRowEditSave(preparer: Preparer, index: number) {
     this.preparers[index] = this.clonedPreparers[preparer.id as unknown as string];
-    if (preparer.name && preparer.nickname && this.selectedTeam) {
-      preparer.team = this.selectedTeam;
+    if (preparer.name && preparer.nickname) {
+      if (this.selectedTeam) {
+        preparer.team = this.selectedTeam;
+      }
       this.preparerService.update(preparer)
       .subscribe(
         (response: any) => {
@@ -83,11 +85,12 @@ export class PreparerDashboardComponent {
         }
         );
     } else {
-      this.showError('O nome não pode ser vazio');
+      this.showError('Preencha todos os campos!');
     }
   }
 
   onRowEditCancel(preparer: Preparer, index: number) {
+    this.selectedTeam = new Team;
     this.preparers[index] = this.clonedPreparers[preparer.id as unknown as string];
     delete this.clonedPreparers[preparer.id as unknown as string];
   }

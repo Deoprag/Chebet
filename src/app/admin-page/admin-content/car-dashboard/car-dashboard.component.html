@@ -7,7 +7,7 @@
     [rows]="10"
     [showCurrentPageReport]="true"
     [scrollable]="true"
-    [tableStyle]="{'min-width': '768px'}"
+    [tableStyle]="{'min-width': '768px', 'min-height':'720px'}"
     scrollWidth="1024px"
     styleClass="p-datatable-gridlines"
     class="w-12 max-w"
@@ -136,8 +136,8 @@
         </ng-template>
         <ng-template pTemplate="body">
             <div class="flex justify-content-around">
-                <button pButton pRipple (click)="deleteCar()" label="Sim" class="p-button-raised bg-blue-300 w-4" id="btnDeleteAccount"></button>
-                <button pButton pRipple (click)="changeDeleteModal()" label="Não" class="p-button-raised bg-red-600 w-4" id="btnDeleteAccount"></button>
+                <button pButton pRipple (click)="deleteCar()" label="Sim" class="p-button-raised bg-pink-300 w-4" id="btnDeleteAccount"></button>
+                <button pButton pRipple (click)="changeDeleteModal()" label="Não" class="p-button-raised bg-red-300 w-4" id="btnDeleteAccount"></button>
             </div>
         </ng-template>
     </p-dialog>
@@ -184,7 +184,7 @@
                     <p-dropdown #preparer class="text-left" (onChange)="updateSelectedPreparer($event)" [options]="preparers" optionLabel="name" appendTo="body" placeholder="Preparadores" [style]="{'width':'190px'}"></p-dropdown>
                 </span>
             </div>
-            <button pButton pRipple label="Registrar" (click)="registerCar(nickname.value, year.value, model.value)" icon="pi pi-plus" class="w-full p-button-raised bg-blue-300"></button>
+            <button pButton pRipple label="Registrar" (click)="registerCar(nickname.value, year.value, model.value)" icon="pi pi-plus" class="w-full p-button-raised bg-pink-300"></button>
         </div>
     </ng-template>
 </p-dialog>

@@ -1,5 +1,5 @@
 {
-  "name": "teste-primeng",
+  "name": "chebet",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,8 +19,9 @@
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
     "@auth0/angular-jwt": "^5.1.2",
-    "angular": "^1.8.3",
+    "angular": "^1.6.10",
     "bootstrap": "^5.3.1",
+    "ngx-extended-pdf-viewer": "^18.1.9",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primeng": "~16.1.0",

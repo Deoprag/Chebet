@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -10,20 +11,24 @@ import { PilotService } from 'src/app/chebet/service/PilotService';
 @Component({
   selector: 'championship-dashboard',
   templateUrl: './championship-dashboard.component.html',
-  styleUrls: ['./championship-dashboard.component.css']
+  styleUrls: ['./championship-dashboard.component.css'],
+  providers: [DatePipe]
 })
+
 export class ChampionshipDashboardComponent {
 
   deleteModal = false;
   registerChampionshipModal = false;
   championships!: Championship[];
   pilots!: Pilot[];
-  selectedTeam!: Team;
+  selectedPilots!: Pilot[];
   championshipToDelete!: Championship;
   indexToDelete!: number;
   clonedChampionships: { [s: string]: Championship } = {};
+  rangeDate!: Date[];
+  today: Date = new Date();
 
-  constructor(private messageService: MessageService, private championshipService: ChampionshipService, private pilotService: PilotService) {}
+  constructor(private messageService: MessageService, private championshipService: ChampionshipService, private pilotService: PilotService, private datePipe: DatePipe) {}
 
   ngOnInit() {
     this.refreshList();
@@ -38,8 +43,12 @@ export class ChampionshipDashboardComponent {
     });
   }
 
-  updateSelectedTeam(event: any) {
-    this.selectedTeam = event.value;
+  arrayToDate(dateArray: any): Date {
+    if (dateArray.length === 6) {
+      return new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
+    } else {
+      return new Date(0,0,0,0,0);
+    }
   }
 
   changeDeleteModal() {
@@ -48,7 +57,7 @@ export class ChampionshipDashboardComponent {
 
   changeRegisterModal() {
     this.registerChampionshipModal = !this.registerChampionshipModal;
-    this.selectedTeam = new Team;
+    this.rangeDate = [];
   }
 
   showError(message: string) {
@@ -65,12 +74,17 @@ export class ChampionshipDashboardComponent {
 
   onRowEditInit(championship: Championship) {
     this.clonedChampionships[championship.id as unknown as string] = { ...championship };
+    this.rangeDate = [this.arrayToDate(championship.date), this.arrayToDate(championship.endDate)];
+    console.log(this.rangeDate);
   }
 
   onRowEditSave(championship: Championship, index: number) {
     this.championships[index] = this.clonedChampionships[championship.id as unknown as string];
+    if (championship.name && this.rangeDate) {
+      championship.date = this.rangeDate[0];
+      championship.endDate = this.rangeDate[1];
+      championship.pilots = this.selectedPilots;
 
-    if (championship.name, championship.date) {
       this.championshipService.update(championship)
       .subscribe(
         (response: any) => {
@@ -84,7 +98,7 @@ export class ChampionshipDashboardComponent {
         }
         );
     } else {
-      this.showError('O nome não pode ser vazio');
+      this.showError('Preencha todos os campos!');
     }
   }
 
@@ -99,11 +113,15 @@ export class ChampionshipDashboardComponent {
     this.changeDeleteModal();
   }
 
-  registerChampionship(name: string, nickname: string) {
+  registerChampionship(name: any) {
     var championship: Championship = new Championship;
+    championship.name = name;
+    championship.date = this.rangeDate[0];
+    championship.endDate = this.rangeDate[1];    
+    var pilots: string = this.getPilotsIds(this.selectedPilots);
 
     if (this.validateRegisterFields(championship)) {
-      this.championshipService.register(championship)
+      this.championshipService.register(championship, pilots)
         .subscribe(
           (response: any) => {
             this.showSuccess("Cadastrado com sucesso!");
@@ -123,6 +141,18 @@ export class ChampionshipDashboardComponent {
     } else {
 
     }
+  }
+
+  getPilotsIds(pilots: Pilot[]) {
+    let pilotsIds = "";
+    pilots.forEach((pilot, index) => {
+      pilotsIds += pilot.id;
+  
+      if (index < pilots.length - 1) {
+        pilotsIds += ', ';
+      }
+    });
+    return pilotsIds;
   }
 
   validateRegisterFields(championship: Championship) {

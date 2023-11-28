@@ -13,11 +13,16 @@ import { AuthService } from '../../chebet/service/AuthService';
 export class LoginComponent {
 
   visible: boolean = false;
+  showPasswordModal: boolean = false;
 
   constructor(private userService: UserService, private messageService: MessageService, private router: Router, private authService: AuthService) { }
   
   showModal() {
     this.visible = true;
+  }
+
+  forgotPassword() {
+    this.showPasswordModal = !this.showPasswordModal;
   }
 
   showError(message: string) {

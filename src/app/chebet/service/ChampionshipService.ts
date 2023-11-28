@@ -18,9 +18,17 @@ export class ChampionshipService {
 
   update(championship: Championship) {
     const url = `http://localhost:8080/api/championship/`;
-    //
+    var id = championship.id;
+    var name = championship.name;
+    var date = championship.date;
+    var endDate = championship.endDate;
+    var pilots = championship.pilots;
     return this.http.put(url, {
-      //
+      id,
+      name,
+      date,
+      endDate,
+      pilots
     });
   }
   
@@ -28,12 +36,21 @@ export class ChampionshipService {
     const url = `http://localhost:8080/api/championship/${championship.id}`;
     return this.http.delete(url);
   }
-
-  register(championship: Championship) {
+  
+  register(championship: Championship, pilots: any) {
     const url = `http://localhost:8080/api/championship/`;
-    //
+
+    console.log(championship);
+    console.log(pilots);
+    
+    var name = championship.name;
+    var date = championship.date;
+    var endDate = championship.endDate;
     return this.http.post(url, {
-        //
+      name,
+      date,
+      endDate,
+      pilots
     });
   }
 }

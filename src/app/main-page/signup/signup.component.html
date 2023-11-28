@@ -12,58 +12,58 @@
 
         <div>
             <div class="flex justify-content-evenly gap-3">
-                <span>
+                <span style="min-width: 220px;">
                     <label for="firstName" class="block text-900 font-medium mb-2 text-left">Nome</label>
-                    <input #firstName id="firstName" type="text" placeholder="Nome" pInputText class="w-full mb-3">
+                    <input #firstName id="firstName" type="text" placeholder="Nome" pInputText class="w-full mb-3" [style]="{'min-width':'100%'}">
                 </span>
-                <span>
+                <span style="min-width: 220px;">
                     <label for="lastName" class="block text-900 font-medium mb-2 text-left">Sobrenome</label>
-                    <input #lastName id="lastName" type="text" placeholder="Sobrenome" pInputText class="w-full mb-3">
+                    <input #lastName id="lastName" type="text" placeholder="Sobrenome" pInputText class="w-full mb-3" [style]="{'min-width':'100%'}">
                 </span>
             </div>
 
             <div class="flex justify-content-evenly gap-3">
-                <span>
+                <span style="min-width: 220px;">
                     <label for="email" class="block text-900 font-medium mb-2 text-left">Email</label>
-                    <input #email id="email" type="text" placeholder="Endereço de email" pInputText class="w-full mb-3">
+                    <input #email id="email" type="text" placeholder="Endereço de email" pInputText class="w-full mb-3" [style]="{'min-width':'100%'}">
                 </span>
-                <span>
+                <span style="min-width: 220px;">
                     <label for="birthDate" id="birthDate" class="block text-900 font-medium mb-2 text-left">Data de Nascimento</label>
-                    <p-calendar (onSelect)="updateDate($event)" placeholder="01/01/2000" appendTo="body" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-calendar>
+                    <p-calendar (onSelect)="updateDate($event)" placeholder="01/01/2000" appendTo="body" dateFormat="dd/mm/yy" [readonlyInput]="true" [style]="{'min-width':'100%'}"></p-calendar>
                 </span>
             </div>
             
             <div class="flex justify-content-evenly gap-3">
-                <span>
+                <span style="min-width: 220px;">
                     <label for="cpf" class="block text-900 font-medium mb-2 text-left">CPF</label>
-                    <p-inputMask #cpf id="cpf" mask="999.999.999-99" type="text" placeholder="123.456.789-10" class="w-full mb-3"></p-inputMask>
+                    <p-inputMask #cpf id="cpf" mask="999.999.999-99" type="text" placeholder="123.456.789-10" class="w-full mb-3" [style]="{'min-width':'100%'}"></p-inputMask>
                 </span>
-                <span>
+                <span style="min-width: 220px;">
                     <label for="gender" id="gender" class="block text-900 font-medium mb-2 text-left">Gênero</label>
-                    <p-dropdown #gender class="text-left" [options]="genders" optionLabel="name" appendTo="body" placeholder="Gênero" [style]="{'width':'220px'}"></p-dropdown>
+                    <p-dropdown #gender class="text-left" [options]="genders" optionLabel="name" appendTo="body" placeholder="Gênero" [style]="{'min-width':'100%'}"></p-dropdown>
                 </span>
             </div>
 
             <div class="flex justify-content-evenly gap-3 pt-3">
-                <span>
+                <span style="min-width: 220px;">
                     <label for="password" class="block text-900 font-medium mb-2 text-left">Senha</label>
-                    <input #password id="password" type="password" placeholder="Senha" pInputText class="w-full mb-3">
+                    <input #password id="password" type="password" placeholder="Senha" pInputText class="w-full mb-3" [style]="{'min-width':'100%'}">
                 </span>
-                <span>
+                <span style="min-width: 220px;">
                     <label for="passwordConfirmation" class="block text-900 font-medium mb-2 text-left">Confirmação de Senha</label>
-                    <input #passwordConfirmation id="passwordConfirmation" type="password" placeholder="Confirmação de Senha" pInputText class="w-full mb-3">
+                    <input #passwordConfirmation id="passwordConfirmation" type="password" placeholder="Confirmação de Senha" pInputText class="w-full mb-3" [style]="{'min-width':'100%'}">
                 </span>
             </div>
             
             <div class="flex justify-content-start gap-3">
-                <span>
+                <span style="min-width: 220px;">
                     <label for="phoneNumber" class="block text-900 font-medium mb-2 text-left">Celular</label>
-                    <p-inputMask #phoneNumber id="phoneNumber" mask="(99) 99999-9999" type="text" placeholder="(41) 99999-9999" class="w-full mb-3"></p-inputMask>
+                    <p-inputMask #phoneNumber id="phoneNumber" mask="(99) 99999-9999" type="text" placeholder="(41) 99999-9999" class="w-full mb-3" [style]="{'min-width':'100%'}"></p-inputMask>
                 </span>
-                <span>
-                    <div class="flex align-items-start" [style]="{'margin-top':'42px'}">
+                <span style="min-width: 220px;">
+                    <div class="flex align-items-start" [style]="{'margin-top':'15%'}">
                         <p-checkbox (click)="acceptTerms()" #userTerms id="" [binary]="true" styleClass="mr-2"></p-checkbox>
-                        <a class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer" href="">Aceitar termos de uso</a>
+                        <a class="font-medium no-underline text-pink-500 text-right cursor-pointer" href="../../../assets/pdfs/Termo.pdf" target="_blank">Aceitar termos de uso</a>
                     </div>
                 </span>
             </div>

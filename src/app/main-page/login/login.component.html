@@ -20,11 +20,7 @@
             <input #password id="password" type="password" placeholder="Senha" pInputText class="w-full mb-3 text-left">
 
             <div class="flex align-items-center justify-content-between mb-6">
-                <div class="flex align-items-center">
-                    <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
-                    <label for="rememberme1" class="text-900">Lembrar conta</label>
-                </div>
-                <a class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer">Esqueceu senha?</a>
+                <a (click)="forgotPassword()" class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer">Esqueceu senha?</a>
             </div>
             <button (click)="login(username.value, password.value)" pButton pRipple label="Entrar" icon="pi pi-user" class="w-full p-button-raised p-button-danger"></button>
         </div>
