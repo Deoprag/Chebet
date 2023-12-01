@@ -19,7 +19,7 @@ export class MainHeaderComponent {
     if(this.isUserLoggedIn && this.isAdmin) {
       this.router.navigate(['/admin-dashboard'])
     } else if (this.isUserLoggedIn && !this.isAdmin) {
-      this.router.navigate(['/edit-user'])
+      this.router.navigate(['//user-content'])
     } else {
       this.router.navigate(['/main-content'])
     }

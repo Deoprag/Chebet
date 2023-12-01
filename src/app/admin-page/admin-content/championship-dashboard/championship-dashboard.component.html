@@ -70,7 +70,7 @@
                             <p-multiSelect [options]="pilots" optionLabel="name" [(ngModel)]="championship.pilots" [style]="{'width': '300px'}"></p-multiSelect>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            <p-scroller [items]="championship.pilots" [itemSize]="50" scrollHeight="100px" styleClass="border-1 surface-border" optionLabel="name" [style]="{'width': '100%', 'height': '100px'}">
+                            <p-scroller [items]="championship.pilots" [itemSize]="50" scrollHeight="150px" styleClass="border-1 surface-border" optionLabel="name" [style]="{'width': '100%', 'height': '100%'}">
                                 <ng-template pTemplate="pilot" let-pilot let-options="options">
                                     <div class="flex align-items-center p-2" style="height: 50px;">{{ pilot.name }}</div>
                                 </ng-template>

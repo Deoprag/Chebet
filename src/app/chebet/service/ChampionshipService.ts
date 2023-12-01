@@ -16,13 +16,12 @@ export class ChampionshipService {
     return this.http.get<Championship[]>(url).pipe();
   }
 
-  update(championship: Championship) {
+  update(championship: Championship, pilots: any) {
     const url = `http://localhost:8080/api/championship/`;
     var id = championship.id;
     var name = championship.name;
     var date = championship.date;
     var endDate = championship.endDate;
-    var pilots = championship.pilots;
     return this.http.put(url, {
       id,
       name,

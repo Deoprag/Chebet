@@ -1,51 +1,51 @@
 <p-toast></p-toast>
-<main-header></main-header>
 <section class="w-full flex justify-content-center align-items-center text-center">
     <div class="w-4 pt-5 pb-5">
+        <h1 class="text-4xl">EDITAR CADASTRO</h1>
         <form>
-            <div class="flex justify-content-evenly gap-3">
-                <span *ngIf="user">
+            <div class="flex justify-content-evenly gap-3 mt-8">
+                <span *ngIf="user" style="min-width: 220px;">
                     <label for="firstName" class="block text-900 font-medium mb-2 text-left">Nome</label>
-                    <input #firstName id="firstName" type="text" placeholder="Nome" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                    <input #firstName id="firstName" type="text" placeholder="Nome" [style]="{'width':'100%'}" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" [disabled]="true">
                 </span>
-                <span *ngIf="user">
+                <span *ngIf="user" style="min-width: 220px;">
                     <label for="lastName" class="block text-900 font-medium mb-2 text-left">Sobrenome</label>
-                    <input #lastName id="lastName" type="text" placeholder="Sobrenome" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                    <input #lastName id="lastName" type="text" placeholder="Sobrenome" [style]="{'width':'100%'}" pInputText class="w-full mb-3" [readonly]="true" [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}" [disabled]="true">
                 </span>
             </div>
             
             <div class="flex justify-content-evenly gap-3">
-                <span *ngIf="user">
+                <span *ngIf="user" style="min-width: 220px;">
                     <label for="email" class="block text-900 font-medium mb-2 text-left">Email</label>
-                    <input #email (change)="updateEmail($event)" id="email" type="text" placeholder="Endereço de email" pInputText class="w-full mb-3" [value]="user.email">
+                    <input #email (change)="updateEmail($event)" id="email" type="text" [style]="{'width':'100%'}" placeholder="Endereço de email" pInputText class="w-full mb-3" [value]="user.email">
                 </span>
-                <span *ngIf="user">
+                <span *ngIf="user" style="min-width: 220px;">
                     <label for="birthDate" id="birthDate" class="block text-900 font-medium mb-2 text-left">Data de Nascimento</label>
-                    <p-calendar #birthDate mask="99/99/9999" type="text" placeholder="01/01/2000" class="w-full mb-3" dateFormat="dd/mm/yy" [(ngModel)]="user.birthDate" [ngModelOptions]="{standalone: true}" [disabled]="true"></p-calendar>
+                    <p-calendar #birthDate mask="99/99/9999" type="text" placeholder="01/01/2000" [style]="{'width':'100%'}" class="w-full mb-3" dateFormat="dd/mm/yy" [(ngModel)]="user.birthDate" [ngModelOptions]="{standalone: true}" [disabled]="true"></p-calendar>
                 </span>
             </div>
             
             <div class="flex justify-content-evenly gap-3 mb-3">
-                <span *ngIf="user">
+                <span *ngIf="user" style="min-width: 220px;">
                     <label for="cpf" class="block text-900 font-medium mb-2 text-left">CPF</label>
-                    <p-inputMask #cpf id="cpf" mask="999.999.999-99" type="text" placeholder="123.456.789-10" class="w-full mb-3" [(ngModel)]="user.cpf" [ngModelOptions]="{standalone: true}" [disabled]="true"></p-inputMask>
+                    <p-inputMask #cpf id="cpf" mask="999.999.999-99" type="text" placeholder="123.456.789-10" class="w-full mb-3" [(ngModel)]="user.cpf" [ngModelOptions]="{standalone: true}" [style]="{'width':'100%'}" [disabled]="true"></p-inputMask>
                 </span>
-                <span *ngIf="user">
+                <span *ngIf="user" style="min-width: 220px;">
                     <label for="gender" id="gender" class="block text-900 font-medium mb-2 text-left">Gênero</label>
-                <p-dropdown #gender (change)="updateGender($event)" class="text-left mb-3" [options]="genders" optionLabel="name" appendTo="body" placeholder="Gênero" [style]="{'width':'220px'}" [(ngModel)]="user.gender" [ngModelOptions]="{standalone: true}"></p-dropdown>
-            </span>
+                    <p-dropdown #gender (change)="updateGender($event)" class="text-left mb-3" [options]="genders" optionLabel="name" appendTo="body" placeholder="Gênero" [style]="{'width':'100%'}" [(ngModel)]="user.gender" [ngModelOptions]="{standalone: true}"></p-dropdown>
+                </span>
         </div>
         
         <div class="flex justify-content-center gap-3 pb-3">
-            <span *ngIf="user">
+            <span *ngIf="user" style="min-width: 220px;">
                 <label for="phoneNumber" class="block text-900 font-medium mb-2 text-left">Celular</label>
-                <p-inputMask #phoneNumber (change)="updatePhoneNumber($event)" id="phoneNumber" mask="(99) 99999-9999" type="text" placeholder="(41) 99999-9999" class="w-full mb-3" [(ngModel)]="user.phoneNumber" [ngModelOptions]="{standalone: true}"></p-inputMask>
+                <p-inputMask #phoneNumber (change)="updatePhoneNumber($event)" id="phoneNumber" mask="(99) 99999-9999" type="text" placeholder="(41) 99999-9999" class="w-full mb-3" [style]="{'width':'100%'}" [(ngModel)]="user.phoneNumber" [ngModelOptions]="{standalone: true}"></p-inputMask>
             </span>
         </div>
         
         <div class="flex justify-content-center gap-3 pt-3">
-            <button pButton pRipple label="Atualizar Dados" (click)="update()" icon="pi pi-user-edit" class="p-button-raised p-button-danger bg-pink-300 w-4"></button>
-            <button pButton pRipple (click)="changeModal()" label="Apagar Conta" class="p-button-raised bg-red-300 w-4" id="btnDeleteAccount" icon="pi pi-user-minus"></button>
+            <button pButton pRipple label="Atualizar Dados" (click)="update()" icon="pi pi-user-edit" class="p-button-raised bg-blue-600 border-blue-700 text-black-alpha-90 w-4 hover:bg-blue-500"></button>
+            <button pButton pRipple (click)="changeModal()" label="Apagar Conta" class="p-button-raised bg-red-600 border-red-700 text-black-alpha-90 w-4 hover:bg-red-500" id="btnDeleteAccount" icon="pi pi-user-minus"></button>
             <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
                 <ng-template pTemplate="header">
                     <span class="text-xl font-bold"  [style]="{'width':'310px'}">Deseja mesmo apagar a conta?</span>
@@ -61,4 +61,3 @@
     </form>
     </div>
 </section>
-<main-footer></main-footer>

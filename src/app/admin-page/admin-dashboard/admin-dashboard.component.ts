@@ -8,7 +8,7 @@ import { SharedService } from '../shared.service';
   selector: 'admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, SharedService]
 })
 export class AdminDashboardComponent {
   isUserLoggedIn = !this.authService.isTokenExpired();
@@ -33,7 +33,7 @@ export class AdminDashboardComponent {
     if(this.isUserLoggedIn && this.isAdmin) {
       this.router.navigate(['/admin-dashboard'])
     } else if (this.isUserLoggedIn && !this.isAdmin) {
-      this.router.navigate(['/edit-user'])
+      this.router.navigate(['/user-content'])
     } else {
       this.router.navigate(['/main-content'])
     }

@@ -40,6 +40,13 @@ import { EditUserComponent } from './user-page/edit-user/edit-user.component';
 import { RouterModule } from '@angular/router';
 import { SharedService } from './admin-page/shared.service';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { UserContentComponent } from './user-page/user-content/user-content.component';
+import { UserHeaderComponent } from './user-page/user-header/user-header.component';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MenuModule } from 'primeng/menu';
+
+
 
 export function jwtOptionsFactory() {
   return {
@@ -70,6 +77,8 @@ export function jwtOptionsFactory() {
     RaceDashboardComponent,
     UserDashboardComponent,
     StatisticsDashboardComponent,
+    UserContentComponent,
+    UserHeaderComponent
   ],
   imports: [
     FormsModule,
@@ -86,9 +95,12 @@ export function jwtOptionsFactory() {
     RippleModule,
     TableModule,
     CalendarModule,
+    MenuModule,
     HttpClientModule,
     DropdownModule,
     MultiSelectModule,
+    SpeedDialModule,
+    InputNumberModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,

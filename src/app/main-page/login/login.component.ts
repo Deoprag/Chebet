@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { UserService } from '../../chebet/service/UserService';
 import { Router } from '@angular/router';
 import { AuthService } from '../../chebet/service/AuthService';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'login',
@@ -49,7 +50,7 @@ export class LoginComponent {
           this.visible = false;
           this.showSuccess("Logado com sucesso!");
           if(!this.authService.isAdmin()) {
-            this.router.navigate(['/edit-user'])
+            this.router.navigate(['/user-content'])
           } else if (this.authService.isAdmin()) {
             this.router.navigate(['/admin-dashboard'])
           } else {

@@ -44,10 +44,10 @@ export class ChampionshipDashboardComponent {
   }
 
   arrayToDate(dateArray: any): Date {
-    if (dateArray.length === 6) {
+    if (dateArray.length > 4) {
       return new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
     } else {
-      return new Date(0,0,0,0,0);
+      return new Date(0,0,0);
     }
   }
 
@@ -75,7 +75,6 @@ export class ChampionshipDashboardComponent {
   onRowEditInit(championship: Championship) {
     this.clonedChampionships[championship.id as unknown as string] = { ...championship };
     this.rangeDate = [this.arrayToDate(championship.date), this.arrayToDate(championship.endDate)];
-    console.log(this.rangeDate);
   }
 
   onRowEditSave(championship: Championship, index: number) {
@@ -83,26 +82,29 @@ export class ChampionshipDashboardComponent {
     if (championship.name && this.rangeDate) {
       championship.date = this.rangeDate[0];
       championship.endDate = this.rangeDate[1];
-      championship.pilots = this.selectedPilots;
+      var pilots: string = this.getPilotsIds(championship.pilots);
 
-      this.championshipService.update(championship)
+      this.championshipService.update(championship, pilots)
       .subscribe(
         (response: any) => {
           this.showSuccess("Atualizado com sucesso!");
           this.refreshList();
         },
         (error) => {
-          console.log(error);
           delete this.clonedChampionships[championship.id as unknown as string];
-          this.showError("Erro desconhecido, tente novamente mais tarde.");
+          this.showError(error.error.message);
         }
         );
     } else {
-      this.showError('Preencha todos os campos!');
-    }
+      if (!this.rangeDate) {
+        this.showError('Selecione pelo menos uma data e hora de inicio!');
+      } else {
+        this.showError('Preencha todos os campos!');
+      }
   }
+}
 
-  onRowEditCancel(championship: Championship, index: number) {
+onRowEditCancel(championship: Championship, index: number) {
     this.championships[index] = this.clonedChampionships[championship.id as unknown as string];
     delete this.clonedChampionships[championship.id as unknown as string];
   }
@@ -137,9 +139,8 @@ export class ChampionshipDashboardComponent {
             console.log(error);
           }
         );
-
     } else {
-
+      this.showError('Preencha todos os campos!');
     }
   }
 
