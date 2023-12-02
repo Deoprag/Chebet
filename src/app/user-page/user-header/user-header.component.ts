@@ -18,15 +18,11 @@ export class UserHeaderComponent implements OnInit{
   user!: User | undefined;
   items!: MenuItem[] | any;
 
-  constructor(private userService: UserService, private messageService: MessageService, private authService: AuthService, private router: Router){}
+  constructor(private userService: UserService, private messageService: MessageService){}
 
   ngOnInit() {
     const token = localStorage.getItem('token');
     var sub = '';
-    
-    interval(5000).subscribe(() => {
-      this.checkAuthentication();
-    });
 
     if (token) {
       const tokenData = JSON.parse(atob(token.split('.')[1]));
@@ -80,14 +76,4 @@ export class UserHeaderComponent implements OnInit{
       },
   ];
 }
-
-checkAuthentication() {
-  var isUserLoggedIn = !this.authService.isTokenExpired();
-
-  if(isUserLoggedIn) {
-    this.router.navigate(['/user-content'])
-  } else {
-    this.router.navigate(['/main-content'])
-  }
-  }
 }

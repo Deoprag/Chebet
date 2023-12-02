@@ -6,6 +6,7 @@ import { User } from '../../chebet/model/User';
 import { NgForm } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'edit-user',
@@ -91,7 +92,7 @@ export class EditUserComponent {
             if(error.status === 0) {
               this.showError("Erro desconhecido, tente novamente mais tarde.");
             } else {
-              // Tratar erros de atualização do usuário
+              this.showError(error.error.message);
             }
           }
           );
@@ -107,11 +108,15 @@ export class EditUserComponent {
       .subscribe(
         (response: any) => {
           this.showSuccess("Apagado com sucesso!");
-          localStorage.setItem('token', '');
-          this.router.navigate(['/main-content'])
+          this.visible = false;
+          localStorage.removeItem('token');
+          
+          setTimeout(() => {
+            this.router.navigate(['/main-content']);
+          }, 2000);
         },  
         (error: any) => {
-          this.showError("Erro desconhecido ao apagar. Tente novamente mais tarde!");
+          this.showError(error.error.message);
         }
       );
     }

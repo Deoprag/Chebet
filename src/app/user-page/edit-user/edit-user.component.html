@@ -48,12 +48,12 @@
             <button pButton pRipple (click)="changeModal()" label="Apagar Conta" class="p-button-raised bg-red-600 border-red-700 text-black-alpha-90 w-4 hover:bg-red-500" id="btnDeleteAccount" icon="pi pi-user-minus"></button>
             <p-dialog [(visible)]="visible" [modal]="true" [resizable]="false" [draggable]="false">
                 <ng-template pTemplate="header">
-                    <span class="text-xl font-bold"  [style]="{'width':'310px'}">Deseja mesmo apagar a conta?</span>
+                    <span class="text-xl font-bold"  [style]="{'width':'310px'}">Deseja mesmo apagar a conta? Essa ação não pode ser desfeita!</span>
                 </ng-template>
                 <ng-template pTemplate="body">
                     <div class="flex justify-content-around">
-                        <button pButton pRipple (click)="deleteAccount()" label="Sim" class="p-button-raised bg-pink-300 w-4" id="btnDeleteAccount"></button>
-                        <button pButton pRipple (click)="changeModal()" label="Não" class="p-button-raised bg-red-300 w-4" id="btnDeleteAccount"></button>
+                        <button pButton pRipple (click)="deleteAccount()" label="Sim" class="p-button-raised bg-blue-600 w-4 border-blue-700" id="btnDeleteAccount"></button>
+                        <button pButton pRipple (click)="changeModal()" label="Não" class="p-button-raised bg-red-600 w-4 border-red-700" id="btnDeleteAccount"></button>
                     </div>
                 </ng-template>
             </p-dialog>
