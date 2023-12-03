@@ -1,12 +1,11 @@
-import { Component, ElementRef, ViewChild, Renderer2, OnInit } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Gender } from '../../chebet/model/Gender';
+import { User } from '../../chebet/model/User';
 import { GenderService } from '../../chebet/service/GenderService';
 import { UserService } from '../../chebet/service/UserService';
-import { User } from '../../chebet/model/User';
-import { NgForm } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
-import { interval } from 'rxjs';
 
 @Component({
   selector: 'edit-user',
@@ -108,9 +107,7 @@ export class EditUserComponent {
       .subscribe(
         (response: any) => {
           this.showSuccess("Apagado com sucesso!");
-          this.visible = false;
           localStorage.removeItem('token');
-          
           setTimeout(() => {
             this.router.navigate(['/main-content']);
           }, 2000);
@@ -118,9 +115,10 @@ export class EditUserComponent {
         (error: any) => {
           this.showError(error.error.message);
         }
-      );
+        );
+      }
+      this.visible = false;
     }
-  }
 
   checkFields() {
     if (this.user) {

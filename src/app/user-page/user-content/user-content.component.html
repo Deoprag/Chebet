@@ -1,5 +1,13 @@
 <div class="flex h-screen flex-column justify-content-between">
     <user-header></user-header>
-    <edit-user></edit-user>
+    <ng-container *ngIf="selected === 'bets'">
+        <bets></bets>
+      </ng-container>
+      <ng-container *ngIf="selected === 'edit-user'">
+        <edit-user></edit-user>
+      </ng-container>
+      <ng-container *ngIf="selected === 'transactions'">
+        <transactions></transactions>
+      </ng-container>
     <main-footer></main-footer>
 </div>

@@ -38,13 +38,17 @@ import { MainHeaderComponent } from './main-page/main-header/main-header.compone
 import { SignupComponent } from './main-page/signup/signup.component';
 import { EditUserComponent } from './user-page/edit-user/edit-user.component';
 import { RouterModule } from '@angular/router';
-import { SharedService } from './admin-page/shared.service';
+import { SharedService } from './chebet/service/shared.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { UserContentComponent } from './user-page/user-content/user-content.component';
 import { UserHeaderComponent } from './user-page/user-header/user-header.component';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MenuModule } from 'primeng/menu';
+import { BetsComponent } from './user-page/bets/bets.component';
+import { TransactionsComponent } from './user-page/transactions/transactions.component';
+import { SidebarModule } from 'primeng/sidebar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 
 
@@ -78,9 +82,13 @@ export function jwtOptionsFactory() {
     UserDashboardComponent,
     StatisticsDashboardComponent,
     UserContentComponent,
-    UserHeaderComponent
+    UserHeaderComponent,
+    BetsComponent,
+    TransactionsComponent,
   ],
   imports: [
+    SelectButtonModule,
+    SidebarModule,
     FormsModule,
     BrowserModule,
     ToastModule,

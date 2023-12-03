@@ -4,13 +4,48 @@
         <img src="assets/Logo.png" class="w-7rem"/>
     </div>
     <div class="w-4 h-100 flex justify-content-center align-items-center">
-        
     </div>
     <div class="w-4 h-100 flex justify-content-end gap-4 align-items-center">
-        <label class="font-bold text-red-300 text-lg"> {{ user?.firstName }} </label>
-        <label class="font-bold text-money text-lg p-2 border-round-md"> R$ {{ user?.balance | number:'1.2-2' }} </label>
+        <label class="font-bold text-red-300 text-lg"> {{ user.firstName }} </label>
+        <label class="font-bold text-money text-lg p-2 border-round-md"> R${{ user.balance | number:'1.2-2' }} </label>
         <p-menu #menu [model]="items" [popup]="true"></p-menu>
-        <button pButton type="button" class="bg-red-300" (click)="menu.toggle($event)" icon="pi pi-angle-down"></button>
-        <button pButton pRipple label="DEPOSITAR" class="p-button-success bg-red-300 border-gray-900 border-round-md font-bold text-white hover:bg-red-200 text-lg"></button>
+        <button pButton type="button" class="bg-red-300 border-gray-900 text-white" (click)="menu.toggle($event)" icon="pi pi-angle-down"></button>
+        <button pButton pRipple label="DEPOSITAR" class="p-button-success bg-red-300 border-gray-900 border-round-md font-bold text-white hover:bg-red-200 text-lg" (click)="changeDepositSidebar()"></button>
     </div>
+    <p-sidebar [(visible)]="depositSidebar" position="right">
+        <h2 class="text-center">DEPÓSITO</h2>
+        <div class="flex justify-content-evenly gap-3 mb-3 mt-5">
+            <span style="min-width: 300px;" class="text-left">
+                <label for="deposit" class="block text-900 text-xl mb-2 text-left">Valor</label>
+                <label for="deposit" class="block text-900 text-sm mb-3 text-left text-gray-500">Digite o valor do depósito</label>
+                <p-inputNumber #depositValue id="depositValue" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" type="number" prefix="R$" [min]="0" [max]="1000" [maxFractionDigits]="0" class="w-full mb-1" [style]="{'width':'100%'}"></p-inputNumber>
+                <label for="deposit" class="block text-900 text-xs text-left text-gray-500">R$1,00 - R$1000,00</label>
+            </span>
+        </div>
+        <div class="flex justify-content-evenly gap-3 mb-3 mt-5">
+            <span style="min-width: 300px;" class="text-left">
+                <label for="deposit" class="block text-900 text-xl mb-2 text-left">Método de pagamento</label>
+                <label for="deposit" class="block text-900 text-sm mb-4 text-left text-gray-500">Escolha a forma de pagamento desejada</label>
+                <p-selectButton [options]="paymentOptions" [(ngModel)]="value" optionLabel="name" optionValue="value" class="text-center"></p-selectButton>
+            </span>
+        </div>
+        <button pButton pRipple label="DEPOSITAR" class="p-button-success bg-purple-300 border-gray-900 border-round-md font-bold text-white hover:bg-purple-200 text-lg w-full mt-4" (click)="addDeposit(depositValue.value)"></button>
+    </p-sidebar>
+    <p-sidebar [(visible)]="withdrawSidebar" position="right">
+        <h2 class="text-center">SAQUE</h2>
+        <div class="flex justify-content-evenly gap-3 mb-3 mt-5">
+            <span style="min-width: 300px;" class="text-left">
+                <label for="withdraw" class="block text-900 text-xl mb-2 text-left">Valor</label>
+                <label for="withdraw" class="block text-900 text-sm mb-3 text-left text-gray-500">Digite o valor do saque</label>
+                <p-inputNumber #withdrawValue id="withdrawValue" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" type="number" mode="currency" currency="BRL" [min]="0" [max]="user.balance" [maxFractionDigits]="2" class="w-full mb-1" [style]="{'width':'100%'}"></p-inputNumber>
+                <label for="withdraw" class="block text-900 text-xs text-left text-gray-500">Disponivel para saque: R${{ user.balance | number:'1.2-2' }}</label>
+            </span>
+        </div>
+        <div class="flex justify-content-evenly gap-3 mb-3 mt-5">
+            <span style="min-width: 300px;" class="text-left">
+                <label for="deposit" class="block text-900 text-sm mb-4 text-left text-gray-500">O valor será enviado para a chave PIX associada a seu CPF</label>
+            </span>
+        </div>
+        <button pButton pRipple label="SACAR" class="p-button-success bg-purple-300 border-gray-900 border-round-md font-bold text-white hover:bg-purple-200 text-lg w-full" (click)="addWithdraw(withdrawValue.value)"></button>
+    </p-sidebar>
 </div>

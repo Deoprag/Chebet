@@ -45,7 +45,7 @@ export class ChampionshipDashboardComponent {
 
   arrayToDate(dateArray: any): Date {
     if (dateArray.length > 4) {
-      return new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
+      return new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4], dateArray[5]);
     } else {
       return new Date(0,0,0);
     }

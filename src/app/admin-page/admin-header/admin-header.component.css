@@ -1,5 +1,5 @@
 .content {
-    background-color: #090909;
+    background-color: #000;
 }
 
 .nav-bar {
@@ -11,9 +11,3 @@
     cursor: pointer;
     border: none;
 }
-
-/* @media (max-width: 1200px) {
-    .nav-bar {
-        display: block;
-    }
-} */

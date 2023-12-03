@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../../chebet/service/shared.service';
 
 @Component({
   selector: 'admin-side-nav',

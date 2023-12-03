@@ -12,7 +12,7 @@ export class User {
     gender: Gender;
     phoneNumber: string;
     password: string;
-    balance: number | null;
+    balance: number;
     active: boolean;
 
     constructor() {
