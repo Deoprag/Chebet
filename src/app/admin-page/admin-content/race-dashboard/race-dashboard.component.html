@@ -1,1 +1,101 @@
-<p>race-dashboard works!</p>
+<p-toast></p-toast>
+<section class="race-table w-full h-full p-5 flex justify-content-center min-h-screen">
+    <p-table
+    #tbRaces
+    [value]="races"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [scrollable]="true"
+    [tableStyle]="{'min-width': '768px', 'min-height':'720px'}"
+    scrollWidth="1024px"
+    styleClass="p-datatable-gridlines"
+    class="w-12"
+    dataKey="id"
+    [globalFilterFields]="['id','raceNumber','pilot1.name','pilot2.name','pilot1Time','pilot2Time','championship.name']"
+    editMode="row">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center responsive">
+                <div class="w-4">
+                </div>
+                <div class="w-4">
+                    <p class="text-center text-3xl">Corridas</p>
+                </div>
+                <div class="w-4 flex flex-end">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="w-full" (input)="tbRaces.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquisar"/>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id" style="width:10%">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="championship.name" style="width:18%">Campeonato <p-sortIcon field="championship"></p-sortIcon></th>
+                <th pSortableColumn="raceNumber" style="width:10%">Número da Corrida <p-sortIcon field="raceNumber"></p-sortIcon></th>
+                <th pSortableColumn="pilot1.name" style="width:18%">Piloto 01 <p-sortIcon field="pilot1Name"></p-sortIcon></th>
+                <th pSortableColumn="pilot1Time" style="width:8%">Tempo <p-sortIcon field="pilot1Time"></p-sortIcon></th>
+                <th pSortableColumn="pilot2.name" style="width:18%">Piloto 02 <p-sortIcon field="pilot2Name"></p-sortIcon></th>
+                <th pSortableColumn="pilot2Time" style="width:8%">Tempo <p-sortIcon field="pilot2Time"></p-sortIcon></th>
+                <th style="width:10%">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-race let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="race">
+                <td>
+                    {{ race.id }}
+                </td>
+                <td>
+                    {{ race.championship.name }}
+                </td>
+                <td>
+                    {{ race.raceNumber }}
+                </td>
+                <td>
+                    {{ race.pilot1.name }}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputMask type="text" [(ngModel)]="pilot1Broke ? '' : race.pilot1Time" mask="99:99.999" placeholder="00:00.000" [disabled]="pilot1Broke"></p-inputMask>
+                            <span class="flex justify-content-start gap-2 mt-1">
+                                <p-checkbox (click)="changePilot1Broke()" [binary]="true" [ngModel]="race.pilot1Broke"></p-checkbox>
+                                <label for="car1broke" class="block text-900 font-medium">Carro quebrado</label>
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <label *ngIf="!race.pilot1Broke">{{ convertTime(race.pilot1Time) }}</label>
+                            <label *ngIf="race.pilot1Broke" class="text-red-400">Carro quebrado</label>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    {{ race.pilot2.name }}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputMask type="text" [(ngModel)]="pilot2Broke ? '' : race.pilot2Time" mask="99:99.999" placeholder="00:00.000" [disabled]="pilot2Broke"></p-inputMask>
+                            <span class="flex justify-content-start gap-2 mt-1">
+                                <p-checkbox (click)="changePilot2Broke()" [binary]="true" [ngModel]="race.pilot2Broke"></p-checkbox>
+                                <label for="car2broke" class="block text-900 font-medium">Carro quebrado</label>
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <label *ngIf="!race.pilot2Broke">{{ convertTime(race.pilot2Time) }}</label>
+                            <label *ngIf="race.pilot2Broke" class="text-red-400">Carro quebrado</label>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing && !race.championship.finished" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(race)" class="p-button-rounded p-button-text "></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(race, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(race, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</section>

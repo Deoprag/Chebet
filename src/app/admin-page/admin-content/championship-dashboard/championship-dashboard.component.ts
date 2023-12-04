@@ -19,6 +19,7 @@ export class ChampionshipDashboardComponent {
 
   deleteModal = false;
   registerChampionshipModal = false;
+  generateRace = false;
   championships!: Championship[];
   pilots!: Pilot[];
   selectedPilots!: Pilot[];
@@ -34,11 +35,15 @@ export class ChampionshipDashboardComponent {
     this.refreshList();
   }
 
+  changeGenerateRace() {
+    this.generateRace = !this.generateRace;
+  }
+
   refreshList() {
     this.championshipService.findAll().subscribe((championships) => {
       this.championships = championships;
     });
-    this.pilotService.findAll().subscribe((pilots) => {
+    this.pilotService.findAllActives().subscribe((pilots) => {
       this.pilots = pilots;
     });
   }
@@ -57,6 +62,7 @@ export class ChampionshipDashboardComponent {
 
   changeRegisterModal() {
     this.registerChampionshipModal = !this.registerChampionshipModal;
+    this.generateRace = false;
     this.rangeDate = [];
   }
 
@@ -75,6 +81,7 @@ export class ChampionshipDashboardComponent {
   onRowEditInit(championship: Championship) {
     this.clonedChampionships[championship.id as unknown as string] = { ...championship };
     this.rangeDate = [this.arrayToDate(championship.date), this.arrayToDate(championship.endDate)];
+    this.generateRace = championship.finished;
   }
 
   onRowEditSave(championship: Championship, index: number) {
@@ -82,8 +89,9 @@ export class ChampionshipDashboardComponent {
     if (championship.name && this.rangeDate) {
       championship.date = this.rangeDate[0];
       championship.endDate = this.rangeDate[1];
+      championship.finished = this.generateRace;
       var pilots: string = this.getPilotsIds(championship.pilots);
-
+      
       this.championshipService.update(championship, pilots)
       .subscribe(
         (response: any) => {
@@ -95,37 +103,39 @@ export class ChampionshipDashboardComponent {
           this.showError(error.error.message);
         }
         );
-    } else {
-      if (!this.rangeDate) {
-        this.showError('Selecione pelo menos uma data e hora de inicio!');
       } else {
-        this.showError('Preencha todos os campos!');
+        if (!this.rangeDate) {
+          this.showError('Selecione pelo menos uma data e hora de inicio!');
+        } else {
+          this.showError('Preencha todos os campos!');
       }
+    }
+    this.generateRace = false;
   }
-}
-
-onRowEditCancel(championship: Championship, index: number) {
+  
+  onRowEditCancel(championship: Championship, index: number) {
     this.championships[index] = this.clonedChampionships[championship.id as unknown as string];
     delete this.clonedChampionships[championship.id as unknown as string];
   }
-    
+  
   onRowDelete(championship: Championship, index: number) {
     this.championshipToDelete = championship;
     this.indexToDelete = index;
     this.changeDeleteModal();
   }
-
+  
   registerChampionship(name: any) {
     var championship: Championship = new Championship;
     championship.name = name;
     championship.date = this.rangeDate[0];
-    championship.endDate = this.rangeDate[1];    
+    championship.endDate = this.rangeDate[1];
+    championship.finished = this.generateRace;
     var pilots: string = this.getPilotsIds(this.selectedPilots);
-
+    
     if (this.validateRegisterFields(championship)) {
       this.championshipService.register(championship, pilots)
-        .subscribe(
-          (response: any) => {
+      .subscribe(
+        (response: any) => {
             this.showSuccess("Cadastrado com sucesso!");
             this.changeRegisterModal();
             this.refreshList();
@@ -138,12 +148,13 @@ onRowEditCancel(championship: Championship, index: number) {
             }
             console.log(error);
           }
-        );
+          );
     } else {
       this.showError('Preencha todos os campos!');
     }
+    this.generateRace = false;
   }
-
+  
   getPilotsIds(pilots: Pilot[]) {
     let pilotsIds = "";
     pilots.forEach((pilot, index) => {

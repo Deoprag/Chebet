@@ -14,6 +14,11 @@ export class PilotService {
     const url = `http://localhost:8080/api/pilot/`;
     return this.http.get<Pilot[]>(url).pipe();
   }
+
+  findAllActives(): Observable<Pilot[]> {
+    const url = `http://localhost:8080/api/pilot/getActives`;
+    return this.http.get<Pilot[]>(url).pipe();
+  }
   
   findAllByTeam(team: Team): Observable<Pilot[]> {
     const url = `http://localhost:8080/api/pilot/findByTeam/${team.id}`;

@@ -79,7 +79,6 @@ export class TransactionsComponent {
   refreshList() {
     this.transactionService.findAllByUser(this.user).subscribe((transactions) => {
       this.transactions = transactions;
-      console.log(this.transactions);
     });
   }
 
@@ -87,27 +86,6 @@ export class TransactionsComponent {
     this.deleteModal = !this.deleteModal;
   }
 
-  deleteBet() {
-    this.transactionService.delete(this.transactionToDelete)
-    .subscribe(
-      (response: any) => {
-        this.showSuccess("Apagado com sucesso!");
-        this.changeDeleteModal();
-        this.refreshList();
-        this.transactions[this.indexToDelete] = this.clonedTransactions[this.transactionToDelete.id as unknown as string];
-        delete this.clonedTransactions[this.transactionToDelete.id as unknown as string];
-      },  
-      (error: any) => {
-        console.log(error);
-        if(error.status === 0) {
-          this.showError("Erro desconhecido, tente novamente mais tarde.");
-        } else {
-          this.showError(error.error.message);
-        }
-        this.changeDeleteModal();
-      }
-    );
-  }
 
   onRowDelete(transaction: Transaction, index: number) {
     this.transactionToDelete = transaction;

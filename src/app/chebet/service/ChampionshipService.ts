@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Championship } from '../model/Championship';
-import { Preparer } from '../model/Preparer';
-import { Team } from '../model/Team';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +20,14 @@ export class ChampionshipService {
     var name = championship.name;
     var date = championship.date;
     var endDate = championship.endDate;
+    var finished = championship.finished;
     return this.http.put(url, {
       id,
       name,
       date,
       endDate,
-      pilots
+      pilots,
+      finished
     });
   }
   
@@ -38,18 +38,20 @@ export class ChampionshipService {
   
   register(championship: Championship, pilots: any) {
     const url = `http://localhost:8080/api/championship/`;
-
+    
     console.log(championship);
     console.log(pilots);
     
     var name = championship.name;
     var date = championship.date;
     var endDate = championship.endDate;
+    var finished = championship.finished;
     return this.http.post(url, {
       name,
       date,
       endDate,
-      pilots
+      pilots,
+      finished
     });
   }
 }

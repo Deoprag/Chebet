@@ -6,6 +6,7 @@ export class Championship {
     date!: Date;
     endDate!: Date;
     pilots!: Pilot[];
+    finished!: boolean;
 
     constructor() {
         
