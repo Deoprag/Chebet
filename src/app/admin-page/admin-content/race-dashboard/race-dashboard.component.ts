@@ -45,13 +45,16 @@ export class RaceDashboardComponent {
   }
 
   convertTime(stringTime: any) {
-    if (stringTime && stringTime.length === 4) {
+    if (stringTime) {
       const minute = Number(stringTime[1]);
       const second = Number(stringTime[2]);
       const millisecond = Number(stringTime[3]);
       const formattedMinute = minute.toString().padStart(2, '0');
       const formattedSecond = second.toString().padStart(2, '0');
-      const formattedMillisecond = millisecond.toString().slice(0, 3);
+      var formattedMillisecond = '000';
+      if (millisecond) {
+        formattedMillisecond = millisecond.toString().slice(0, 3);
+      }
       const formattedTime = `${formattedMinute}:${formattedSecond}.${formattedMillisecond}`;
 
       return formattedTime;

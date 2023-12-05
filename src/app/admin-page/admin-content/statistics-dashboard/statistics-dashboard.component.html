@@ -1,1 +1,57 @@
-<p>statistics-dashboard works!</p>
+<p-toast></p-toast>
+<section class="ranking-table w-full h-full p-5 flex flex-column justify-content-start min-h-screen">
+    <div class="w-100 text-left flex flex-column gap-3">
+        <label class="text-2xl">Selecione um Campeonato</label>
+        <p-dropdown class="text-left" [options]="championships" optionLabel="name" appendTo="body" placeholder="Campeonatos" [style]="{'min-width':'100%'}" (onChange)="updateSelectedChampionship($event)"></p-dropdown>
+    </div>
+    <div>
+        <p-table
+        #tbRanking
+        *ngIf="rankings"
+        [value]="rankings"
+        [rows]="100"
+        [scrollable]="true"
+        [tableStyle]="{'min-width': '768px', 'min-height':'720px'}"
+        scrollWidth="1024px"
+        styleClass="p-datatable-gridlines"
+        class="w-12"
+        dataKey="id"
+        [globalFilterFields]="['name', 'id']"
+        editMode="row">
+        <ng-template pTemplate="caption">
+            <div class="w-full">
+                <p class="text-center text-3xl">Ranking</p>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:4%">Posição</th>
+                <th>Piloto</th>
+                <th>Apelido</th>
+                <th>Equipe</th>
+                <th>Tempo</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ranking let-ri="rowIndex">
+            <tr [pEditableRow]="ranking">
+                <td>
+                    {{ranking.position + "°"}}
+                </td>
+                <td>
+                    {{ranking.pilot.name}}
+                </td>
+                <td>
+                    {{ranking.pilot.nickname}}
+                </td>
+                <td>
+                    {{ranking.pilot.team.name}}
+                </td>
+                <td>
+                    <label *ngIf="ranking.broken" class="text-red-400">Carro quebrou</label>
+                    <label *ngIf="!ranking.broken"> {{ (convertTime(ranking.time)) }}</label>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</section>

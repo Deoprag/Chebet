@@ -51,20 +51,24 @@ export class SignupComponent {
       if (!this.userTerms) {
         this.showWarn("Você precisa aceitar os termos de uso para continuar!");
       } else {
-        this.userService.signUp(firstName, lastName, email, cpf, gender, password, this.birthDate, phoneNumber)
-        .subscribe(
-          (response: any) => {
-            this.showSuccess("Cadastrado com sucesso!");
-            this.visible = false;
-          },
-          (error) => {
-            if(error.status === 0) {
-              this.showError("Erro desconhecido, tente novamente mais tarde.");
-            } else {
-              this.showError(error.error.message);
+        if(password === passwordConfirmation) {
+          this.userService.signUp(firstName, lastName, email, cpf, gender, password, this.birthDate, phoneNumber)
+          .subscribe(
+            (response: any) => {
+              this.showSuccess("Cadastrado com sucesso!");
+              this.visible = false;
+            },
+            (error) => {
+              if(error.status === 0) {
+                this.showError("Erro desconhecido, tente novamente mais tarde.");
+              } else {
+                this.showError(error.error.message);
+              }
             }
+            );
+          } else {
+            this.showWarn("As senhas precisam ser iguais!");
           }
-          );
       }
     } else {
       this.showWarn("Preencha todos os campos!");

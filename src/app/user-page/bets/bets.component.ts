@@ -30,7 +30,10 @@ export class BetsComponent {
   championship!: Championship;
   pilots!: Pilot[];
   betSidebar = false;
+  showOneBet = false;
+  history = false;
   bets!: Bet[];
+  selectedBet!: Bet;
   betTypes!: BetType[];
   selectedBetType!: BetType;
   pilot1!: Pilot;
@@ -60,6 +63,12 @@ export class BetsComponent {
   loadRaces(championship: Championship) {
     this.raceService.findAllByChampionship(championship).subscribe((races) => {
       this.races = races;
+    });
+  }
+
+  loadBets() {
+    this.betService.findAllByUser(this.user).subscribe((bets) => {
+      this.bets = bets;
     });
   }
 
@@ -126,7 +135,7 @@ export class BetsComponent {
     this.time2 = this.time1 + 5;
   }
 
-  formatSecondsToTime(seconds: number): string {
+  formatSecondsToTime(seconds: any): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     const formattedTime = `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
@@ -230,6 +239,61 @@ export class BetsComponent {
         this.betSidebar = !this.betSidebar;
     } else {
       this.showWarn("Escolha um valor maior que R$1,00")
+    }
+  }
+
+  convertBetType(betTypeUnformatted: any) {
+    const lowercaseBetTypeUnformatted = betTypeUnformatted;
+    const matchingBetType = this.betTypes.find(betType => betType.code.toLowerCase() === lowercaseBetTypeUnformatted);
+    return matchingBetType?.name;
+  }
+
+  showHistory() {
+    this.history = !this.history;
+  }
+
+  showBet(bet: Bet) {
+    this.showOneBet = !this.showOneBet;
+    this.history = false;
+    this.selectedBet = bet;
+  }
+
+  formatDate(arrayDate: any) {
+    return `${this.padZero(arrayDate[2])}/${this.padZero(arrayDate[1])}/${arrayDate[0]} - ${this.padZero(arrayDate[3])}:${this.padZero(arrayDate[4])}`
+  }
+
+  deleteBet(betToDelete: Bet) {
+    this.betService.delete(betToDelete)
+      .subscribe(
+        (response: any) => {
+          this.showSuccess("Aposta apagada com sucesso!");
+          this.showOneBet = false;
+          this.selectedBet = new Bet;
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        },
+        (error) => {
+          this.showError(error.error.message);
+        }
+      );
+  }
+
+  convertTime(stringTime: any) {
+    if (stringTime) {
+      const minute = Number(stringTime[1]);
+      var second = Number(stringTime[2]);
+      const formattedMinute = minute.toString().padStart(2, '0');
+      if(!second) {
+        second = 0;
+      }
+      const formattedSecond = second.toString().padStart(2, '0');
+      const formattedTime = `${formattedMinute}:${formattedSecond}`;
+
+      return formattedTime;
+    } else {
+      return '';
     }
   }
 }

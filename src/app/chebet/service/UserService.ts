@@ -17,6 +17,12 @@ export class UserService {
     const url = 'http://localhost:8080/api/user/login';
     return this.http.post(url, { login, password });
   }
+
+  findAll(): Observable<User[]> {
+    const url = `http://localhost:8080/api/user/`;
+  
+    return this.http.get<User[]>(url).pipe();
+  }
   
   signUp(firstName: any, lastName: any, email: any, cpf: any, gender: any, password: any, birthDate: any, phoneNumber: any) {
     cpf = cpf.replace(/[.-]/g, '');

@@ -18,7 +18,7 @@
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center">
                     <div class="w-4 flex align-items-center justify-content-start">
-                        <p-button type="button" icon="pi pi-book" styleClass="p-button-outlined p-button-danger" label="Histórico de Apostas"></p-button>
+                        <p-button type="button" icon="pi pi-book" styleClass="p-button-outlined p-button-danger" (onClick)="showHistory()"  label="Histórico de Apostas"></p-button>
                     </div>
                     <div class="w-4">
                         <p class="text-center text-3xl">Campeonatos Disponiveis</p>
@@ -127,4 +127,107 @@
             <button pButton pRipple label="APOSTAR" class="bg-red-300 border-gray-900 border-round-md font-bold text-white hover:bg-red-200 text-lg w-full" (click)="confirmBet()"></button>
         </div>
     </p-sidebar>
+    <p-dialog [(visible)]="history" [modal]="true" [resizable]="false" [draggable]="false">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold" [style]="{'width':'700px'}">Histórico de Apostas</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <div class="flex font-bold mb-5 text-sm text-center flex justify-content-center p-2 align-items-center sticky bg-gray-900 z-5" style="width: 100%; min-height: 50px;">
+                <label style="width: 10%;">
+                    APOSTA
+                </label>
+                <label style="width: 16%;">
+                    TRANSAÇÃO
+                </label>
+                <label style="width: 16%;">
+                    CAMPEONATO
+                </label>
+                <label style="width: 16%;">
+                    TIPO
+                </label>
+                <label style="width: 16%;">
+                    VALOR
+                </label>
+                <label style="width: 16%;">
+                    AÇÃO
+                </label>
+            </div>
+            <div *ngFor="let bet of bets" class="flex border-1 text-center bg-gray-700 hover:bg-gray-900 mb-3 flex justify-content-center p-2 align-items-center" style="width: 100%; min-height: 50px;">
+                <div style="width: 10%;">
+                    {{ bet.id }}
+                </div>
+                <div style="width: 16%;">
+                    {{ bet.transaction.id }}
+                </div>
+                <div style="width: 16%;">
+                    {{ bet.championship.name }}
+                </div>
+                <div style="width: 16%;">
+                    {{ convertBetType(bet.betType) }}
+                </div>
+                <div style="width: 16%;" class="text-red-400">
+                    {{ '- R$' + (bet.transaction.value | number:'1.2-2') }}
+                </div>
+                <label class="text-right" style="width: 16%;">
+                    <button pButton pRipple label="CONSULTAR" class="bg-red-300 border-none border-round-md text-white font-bold hover:bg-red-200 text-xs" (click)="showBet(bet)"></button>
+                </label>
+            </div>
+        </ng-template>
+    </p-dialog>
+    <p-dialog [(visible)]="showOneBet" *ngIf="selectedBet" [modal]="true" [resizable]="false" [draggable]="false">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold" [style]="{'width':'400px'}">Aposta #{{ selectedBet.id }}</span>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <div class="flex flex-column justify-content-evenly gap-3 mt-2">
+                <span>
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Valor da aposta</label>
+                    <label for="betValue" class="block text-900 text-lg mb-3 text-left text-red-300 font-bold">{{ 'R$' + (selectedBet.transaction.value | number:'1.2-2') }}</label>
+                </span>
+                <span>
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Campeonato</label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.championship.name }} </label>
+                </span>
+                <span>
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Tipo da aposta</label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ convertBetType(selectedBet.betType) }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === 'Vitória Simples'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Vencedor </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.simpleVictory.pilot.name }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === 'Carro Quebrado'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Quebrará o carro </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.brokenCar.pilot.name }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === 'Posição Simples'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Piloto </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.simplePosition.pilot.name }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === 'Posição Simples'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Posição </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.simplePosition.position }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === 'Tempo Médio'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Tempo Médio </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ 'Entre ' + convertTime(selectedBet.averageTime.averageTime1) + ' e ' + convertTime(selectedBet.averageTime.averageTime2) }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === '1 Contra 1'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Corrida </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.headToHead.winner.name + ' VS ' + selectedBet.headToHead.loser.name }} </label>
+                </span>
+                <span *ngIf="convertBetType(selectedBet.betType) === '1 Contra 1'">
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Vencedor </label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ selectedBet.headToHead.winner.name }} </label>
+                </span>
+                <span>
+                    <label for="championship" class="block text-900 text-xl mb-2 text-left font-bold">Horário da aposta</label>
+                    <label for="betValue" class="block text-lg mb-3 text-left text-600 font-bold">{{ formatDate(selectedBet.transaction.dateTime) }} </label>
+                </span>
+                <span *ngIf="!selectedBet.championship.finished">
+                    <button pButton pRipple label="Cancelar Aposta" class="bg-red-500 border-none border-round-md text-white font-bold hover:bg-red-400 text-md" (click)="deleteBet(selectedBet)"></button>
+                </span>
+            </div>
+        </ng-template>
+    </p-dialog>
 </div>

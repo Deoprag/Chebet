@@ -157,6 +157,10 @@ export class UserHeaderComponent implements OnInit{
           this.showSuccess("Valor depositado com sucesso!");
           this.updateUser();
           this.changeDepositSidebar();
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         },
         (error) => {
           if(error.status === 0) {
@@ -183,6 +187,10 @@ export class UserHeaderComponent implements OnInit{
             this.showSuccess("Valor sacado com sucesso!");
             this.updateUser();
             this.changeWithdrawSidebar();
+            
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           },
           (error) => {
             if(error.status === 0) {

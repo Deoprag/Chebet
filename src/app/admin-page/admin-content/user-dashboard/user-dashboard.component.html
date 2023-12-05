@@ -1,1 +1,62 @@
-<p>user-dashboard works!</p>
+<p-toast></p-toast>
+<section class="championship-table w-full h-full p-5 flex justify-content-center min-h-screen">
+    <p-table
+    #tbUsers
+    [value]="users"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [scrollable]="true"
+    [tableStyle]="{'min-width': '768px', 'min-height':'720px'}"
+    scrollWidth="1024px"
+    styleClass="p-datatable-gridlines"
+    class="w-12"
+    dataKey="id"
+    [globalFilterFields]="['name', 'id', 'email', 'phonenumber']"
+    editMode="row">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center">
+                <div class="w-4">
+                    <p-button type="button" icon="pi pi-plus" (onClick)="changeRegisterModal()" styleClass="p-button-text"></p-button>
+                </div>
+                <div class="w-4">
+                    <p class="text-center text-3xl">Equipes</p>
+                </div>
+                <div class="w-4 flex flex-end">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" class="w-full" (input)="tbUsers.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquisar"/>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id" style="width:10%">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                <th>Data de Nascimento</th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                <th pSortableColumn="phonenumber">Número <p-sortIcon field="phonenumber"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="user" *ngIf="user.active">
+                <td>
+                    {{user.id}}
+                </td>
+                <td>
+                    {{ user.firstName + ' ' + user.lastName }}
+                </td>
+                <td>
+                    {{ formatDate(user.birthDate) }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+                <td>
+                    {{ formatNumber(user.phoneNumber) }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
