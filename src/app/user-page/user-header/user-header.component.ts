@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/chebet/service/shared.service';
 })
 
 export class UserHeaderComponent implements OnInit{
-  user!: User;
+  user: User = new User;
   transaction!: Transaction;
   items!: MenuItem[] | any;
   value!: number;
@@ -58,10 +58,8 @@ export class UserHeaderComponent implements OnInit{
       sub = tokenData.sub;
 
       this.userService.findByUsername(sub).subscribe(
-        (user: User | undefined) => {
-          if (user) {
-            this.user = user;
-          }
+        (user: User) => {
+          this.user = user;
         },
         (error: any) => {
           console.error('Erro ao buscar o usuário:', error);

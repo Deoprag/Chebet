@@ -49,8 +49,8 @@ import { BetsComponent } from './user-page/bets/bets.component';
 import { TransactionsComponent } from './user-page/transactions/transactions.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { SelectButtonModule } from 'primeng/selectbutton';
-
-
+import { SliderModule } from 'primeng/slider';
+import { ListboxModule } from 'primeng/listbox';
 
 export function jwtOptionsFactory() {
   return {
@@ -88,6 +88,8 @@ export function jwtOptionsFactory() {
   ],
   imports: [
     SelectButtonModule,
+    ListboxModule,
+    SliderModule,
     SidebarModule,
     FormsModule,
     BrowserModule,

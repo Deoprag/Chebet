@@ -119,9 +119,3 @@ export class RaceDashboardComponent {
     this.pilot2Broke = false;
   }
 }
-
-interface Time {
-  minute: number;
-  second: number;
-  millisecond: number;
-}

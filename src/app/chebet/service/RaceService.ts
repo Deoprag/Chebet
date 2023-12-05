@@ -17,7 +17,7 @@ export class RaceService {
   }
   
   findAllByChampionship(championship: Championship): Observable<Race[]> {
-    const url = `http://localhost:8080/api/race/findByTeam/${championship.id}`;
+    const url = `http://localhost:8080/api/race/findByChampionship/${championship.id}`;
     return this.http.get<Race[]>(url).pipe();
   }
 

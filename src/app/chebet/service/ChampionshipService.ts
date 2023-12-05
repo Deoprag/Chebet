@@ -7,7 +7,7 @@ import { Championship } from '../model/Championship';
   providedIn: 'root'
 })
 export class ChampionshipService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   findAll(): Observable<Championship[]> {
     const url = `http://localhost:8080/api/championship/`;

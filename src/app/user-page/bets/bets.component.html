@@ -13,7 +13,7 @@
         styleClass="p-datatable-gridlines"
         class="w-12"
         dataKey="id"
-        [globalFilterFields]="['name']"
+        [globalFilterFields]="['name', 'situation', 'date']"
         editMode="row">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center">
@@ -33,14 +33,15 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="name" style="width:26.6%">Nome <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="name" style="width:26.6%">Data <p-sortIcon field="nickname"></p-sortIcon></th>
-                    <th pSortableColumn="pilots" style="width:26.6%">Pilotos <p-sortIcon field="pilots"></p-sortIcon></th>
+                    <th pSortableColumn="name" style="width:22.5%">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="date" style="width:22.5%">Data <p-sortIcon field="date"></p-sortIcon></th>
+                    <th style="width:22.5%">Participantes</th>
+                    <th pSortableColumn="finished" style="width:5%">Situação <p-sortIcon field="situation"></p-sortIcon></th>
                     <th style="width:10%">Ações</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-championship let-editing="editing" let-ri="rowIndex">
-                <tr [pEditableRow]="championship">
+                <tr>
                     <td>
                         {{championship.name}}
                     </td>
@@ -54,11 +55,76 @@
                             </ng-template>
                         </p-scroller>
                     </td>
+                    <td>
+                        {{ championship.finished ? 'Finalizado' : 'Em Andamento' }}
+                    </td>
                     <td class="text-center">
-                        <p-button type="button" icon="pi pi-book" styleClass="p-button-danger text-gray-800 font-bold" label="Apostar" (onClick)="bet(championship)"></p-button>
+                        <p-button type="button" icon="pi pi-book" styleClass="p-button-danger text-gray-800 font-bold" label="Apostar" [disabled]="championship.finished" (onClick)="startBet(championship)"></p-button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
     </section>
+    <p-sidebar [(visible)]="betSidebar" position="right">
+        <h2 class="text-center">APOSTA</h2>
+        <label for="withdraw" class="block text-900 text-xl mb-2 mt-2 text-center text-red-300"> {{ name }} </label>
+        <div class="flex flex-column justify-content-evenly gap-3 mb-3 mt-5">
+            <span style="min-width: 300px;" class="text-left">
+                <label for="withdraw" class="block text-900 text-xl mb-2 text-left">Valor</label>
+                <label for="betValue" class="block text-900 text-md mb-3 text-left text-gray-500">Digite o valor da aposta</label>
+                <p-inputNumber *ngIf="user" #withdrawValue id="withdrawValue" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" type="number" mode="currency" currency="BRL" [min]="1" [max]="user.balance" [maxFractionDigits]="2" class="w-full mb-1" [style]="{'width':'100%'}" (ngModelChange)="updateValue($event)" [ngModel]="value" ></p-inputNumber>
+                <label *ngIf="user" for="avaliable" class="block text-900 text-sm text-left text-gray-500">Disponivel para apostar: R${{ user.balance | number:'1.2-2' }}</label>
+            </span>
+            <span>
+                <label for="betType" class="block text-900 text-xl mb-2 text-left">Tipo da aposta</label>
+                <label for="selectBetType" class="block text-900 text-md mb-3 text-left text-gray-500">Selecione o tipo da aposta</label>
+                <p-dropdown class="text-left" [options]="betTypes" optionLabel="name" appendTo="body" placeholder="Apostas" [style]="{'min-width':'100%'}" (onChange)="updateSelectedBet($event)"></p-dropdown>
+            </span>
+            <span *ngIf="selectedBetType && (selectedBetType.code === 'SimpleVictory' || selectedBetType.code === 'BrokenCar' || selectedBetType.code === 'SimplePosition')">
+                <label for="simpleVictory" class="block text-900 text-xl mb-2 text-left"> {{ selectedBetType.name }} </label>
+                <label for="selectBetType" class="block text-900 text-md mb-3 text-left text-gray-500" *ngIf="selectedBetType.code === 'SimpleVictory'" >Selecione o piloto vencedor</label>
+                <label for="selectBetType" class="block text-900 text-md mb-3 text-left text-gray-500" *ngIf="selectedBetType.code === 'BrokenCar'" >Selecione piloto que quebrará o carro</label>
+                <label for="selectBetType" class="block text-900 text-md mb-3 text-left text-gray-500" *ngIf="selectedBetType.code === 'SimplePosition'" >Selecione o piloto</label>
+                <p-dropdown class="text-left" [options]="championship.pilots" optionLabel="name" appendTo="body" placeholder="Pilotos" [style]="{'min-width':'100%'}" (onChange)="updateSelectedPilot1($event)"></p-dropdown>
+                <label for="selectBetType" class="block text-900 text-md mb-3 mt-3 text-left text-gray-500" *ngIf="selectedBetType.code === 'SimplePosition' && positions" >Selecione a posicao</label>
+                <p-dropdown class="text-left" *ngIf="selectedBetType.code === 'SimplePosition' && positions" [options]="positions" appendTo="body" placeholder="Posicao" [style]="{'min-width':'100%'}" (onChange)="updateSelectedPosition($event)"></p-dropdown>
+            </span>
+            <span *ngIf="selectedBetType &&  (selectedBetType.code === 'AverageTime')">
+                <label for="simpleVictory" class="block text-900 text-xl mb-2 text-left">Selecione o tempo</label>
+                <label for="selectBetType" class="block text-900 text-md mb-3 mt-3 text-left text-gray-500">Tempo médio de todas as corridas</label>
+                <input type="text" pInputText [ngModel]="'Entre ' + formatSecondsToTime(time1) + ' e ' + formatSecondsToTime(time2)" class="w-full mb-2" [readOnly]="true"/>
+                <p-slider [(ngModel)]="time1" [max]="300" [style]="{'width':'100%'}" (onSlideEnd)="updateSecondValue()"></p-slider>
+            </span>
+            <span *ngIf="selectedBetType && (selectedBetType.code === 'HeadToHead')">
+                <label for="headToHead" class="block text-900 text-xl mb-2 text-left">Selecione a corrida</label>
+                <p-listbox [options]="races" [(ngModel)]="race" class="mb-2" [listStyle]="{ 'max-height': '150px' }" (onChange)="updateSelectedRace()">
+                    <ng-template let-race pTemplate="item" class="w-100 text-center">
+                        <label class="text-sm font-bold w-4 text-center">
+                            {{ race.pilot1.name }}
+                        </label>
+                        <label class="font-bold w-4 text-center">
+                            &nbsp;&nbsp;X&nbsp;&nbsp;
+                        </label>
+                        <label class="text-sm font-bold w-4 text-center">
+                            {{ race.pilot2.name }}
+                        </label>
+                    </ng-template>
+                </p-listbox>
+                <label for="headToHead" *ngIf="selectedBetType.code === 'HeadToHead' && racePilots" class="block text-900 text-xl mt-3 mb-2 text-left">Selecione o vencedor</label>
+                <p-dropdown class="text-left" *ngIf="selectedBetType.code === 'HeadToHead' && racePilots" [options]="racePilots" appendTo="body" placeholder="Piloto" optionLabel="name" [style]="{'min-width':'100%'}" (onChange)="updateWinner($event)"></p-dropdown>
+            </span>
+        </div>
+        <div class="flex flex-column justify-content-evenly gap-3 mb-3 mt-3" 
+        *ngIf="selectedBetType && 
+        ((selectedBetType.code === 'SimpleVictory' && pilot1) || 
+        (selectedBetType.code === 'BrokenCar' && pilot1) ||
+        (selectedBetType.code === 'SimplePosition' && pilot1 && position) ||
+        (selectedBetType.code === 'AverageTime' && time1 && time2) ||
+        (selectedBetType.code === 'HeadToHead' && pilot1 && pilot2 && race))">
+            <span style="min-width: 300px;" class="text-left">
+                <label for="deposit" class="block text-900 text-sm text-justify text-gray-500 mr-2 ml-2">O valor será debitado diretamente da sua conta</label>
+            </span>
+            <button pButton pRipple label="APOSTAR" class="bg-red-300 border-gray-900 border-round-md font-bold text-white hover:bg-red-200 text-lg w-full" (click)="confirmBet()"></button>
+        </div>
+    </p-sidebar>
 </div>

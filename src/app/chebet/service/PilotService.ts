@@ -3,6 +3,7 @@ import { Pilot } from '../model/Pilot';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Team } from '../model/Team';
+import { Championship } from '../model/Championship';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,11 @@ export class PilotService {
   
   findAllByTeam(team: Team): Observable<Pilot[]> {
     const url = `http://localhost:8080/api/pilot/findByTeam/${team.id}`;
+    return this.http.get<Pilot[]>(url).pipe();
+  }
+
+  findAllByChampionship(championship: Championship): Observable<Pilot[]> {
+    const url = `http://localhost:8080/api/pilot/findByChampionship/${championship.id}`;
     return this.http.get<Pilot[]>(url).pipe();
   }
 
